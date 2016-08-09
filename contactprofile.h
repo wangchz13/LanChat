@@ -2,7 +2,7 @@
 #define CONTACTPROFILE_H
 #include "baseprofile.h"
 
-class ContactProfile : BaseProfile
+class ContactProfile : public BaseProfile
 {
 public:
     ContactProfile();
