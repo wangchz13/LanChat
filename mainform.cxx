@@ -3,6 +3,7 @@
 #include "messagebutton.h"
 #include "databaseconnector.h"
 #include "contactprofile.h"
+#include "contactmsgbutton.h"
 
 #include <QDateTime>
 #include <QScrollBar>
@@ -43,7 +44,7 @@ void MainForm::initMsgPage()
     _msgLayout = new QVBoxLayout;
     _msgLayout->setSpacing(0);
     ui->msgHintLabel->hide();
-    if(_msgVector.isEmpty()){
+    if(_contactMsgVec.isEmpty()){
         ui->msgHintLabel->show();
     }
     _msgLayout->addStretch();
@@ -66,27 +67,6 @@ void MainForm::initContactPage()
 void MainForm::initBottomWidget()
 {
     ui->onlineLabel->setText(tr("当前在线：%1人").arg(QString::number(currentOnline)));
-}
-
-void MainForm::newMessage(QString title, QString data, QString time, QPixmap *head)
-{
-    ui->msgHintLabel->hide();
-    MessageButton *msgButton = new MessageButton(title, data, time);
-    bool flag = true;
-    for(int i = 0; i < _msgVector.size(); i++){
-        if(*_msgVector[i] == *msgButton){//有此消息
-            _msgVector.move(i, 0);
-            _msgVector[0]->_data = msgButton->_data;
-            _msgLayout->removeWidget(_msgVector[0]);
-            flag = false;
-            break;
-        }
-    }
-    if(flag){
-        _msgVector.insert(0, msgButton);
-    }
-    _msgLayout->insertWidget(0,_msgVector[0]);
-    _msgVector[0]->newMessageComing();
 }
 
 void MainForm::newContact(QString userName, QString computerName, QString ipAddress, QPixmap *head)
@@ -112,14 +92,40 @@ void MainForm::newBuddySlot(M_Login login)
 
 void MainForm::newMessageSlot(M_Message msg)
 {
-    newMessage(msg._userName,msg._content,QTime::currentTime().toString());
+    qDebug() << "Heer";
+    ui->msgHintLabel->hide();
+    if(msg._type == ProfileType::contact){
+        ContactMsgButton *cmb = new ContactMsgButton(msg);
+        bool flag = true;
+        for(int i = 0; i < _contactMsgVec.size(); i++){
+            if(*_contactMsgVec[i] == *cmb){//有此消息
+                _contactMsgVec.move(i, 0);
+                _contactMsgVec[0]->_data = cmb->_data;
+                _msgLayout->removeWidget(_contactMsgVec[0]);
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            _contactMsgVec.insert(0, cmb);
+            qDebug() << "1";
+        }
+        qDebug() << "2";
+        _msgLayout->insertWidget(0,_contactMsgVec[0]);
+        qDebug() << "3";
+        _contactMsgVec[0]->newMessageComing();
+        qDebug() << "4";
+    }else if(msg._type == ProfileType::group){
+
+    }
+
 }
 
 void MainForm::clearAllMsg()
 {
-    while(_msgVector.size()){
-        _msgLayout->removeWidget(_msgVector.first());
-        _msgVector.removeFirst();
+    while(_contactMsgVec.size()){
+        _msgLayout->removeWidget(_contactMsgVec.first());
+        _contactMsgVec.removeFirst();
     }
 }
 
