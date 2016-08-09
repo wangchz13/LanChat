@@ -18,8 +18,9 @@ QString getUserName();
 QString getComputerName();
 QString getIp();
 
-enum MessageType{Login,Message,MyStateChange,BuddyStateChange,FeedBack};
-enum StateType{OnLine,Busy,OffLine};
+enum MessageType {login,message,myStateChange,contactStateChange,feedBack};
+enum StateType {onLine,busy,offLine};
+enum ProfileType {contact,group};
 
 class M_Login{
 public:

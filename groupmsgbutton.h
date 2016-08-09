@@ -7,7 +7,6 @@
 class GroupMsgButton : MessageButton
 {
 public:
-    GroupMsgButton();
     GroupMsgButton(M_Message msg);
 
     void mouseDoubleClickEvent(QMouseEvent *e);

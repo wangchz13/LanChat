@@ -1,16 +1,16 @@
 ﻿#ifndef CONTACT_H
 #define CONTACT_H
-#include "global.h"
-#include <QImage>
 
-class Contact
+#include "baseprofile.h"
+
+#include <QImage>
+#include "global.h"
+
+class Contact : BaseProfile
 {
 public:
     Contact();
-    Contact(QString name, QString data, QImage head = contactHead);
-    QString _name;
-    QString _data;
-    QImage _head;
+    Contact(QString name, QString data, QImage head);
 };
 
 #endif // CONTACT_H

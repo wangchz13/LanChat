@@ -11,13 +11,13 @@ MessageSender::MessageSender(QObject *parent) : QObject(parent)
 MessageSender::MessageSender(M_Login login)
     : _login(login)
 {
-    _type = MessageType::Login;
+    _type = MessageType::login;
 }
 
 MessageSender::MessageSender(M_Message message)
     : _message(message)
 {
-    _type = MessageType::Message;
+    _type = MessageType::message;
 }
 
 
@@ -27,9 +27,9 @@ void MessageSender::send()
     out.setVersion(QDataStream::Qt_5_6);
     out  << (qint8)_type;
     switch (_type) {
-    case MessageType::Login:
+    case MessageType::login:
         out << _login;
-    case MessageType::Message:
+    case MessageType::message:
         out << _message;
     default:
         break;

@@ -25,8 +25,6 @@ SOURCES += main.cxx\
     groupmsgbutton.cxx \
     contactbutton.cxx \
     groupbutton.cxx \
-    contact.cxx \
-    group.cxx \
     baseprofile.cxx \
     contactprofile.cxx \
     groupprofile.cxx \
@@ -46,8 +44,6 @@ HEADERS  += \
     groupmsgbutton.h \
     contactbutton.h \
     groupbutton.h \
-    contact.h \
-    group.h \
     baseprofile.h \
     contactprofile.h \
     groupprofile.h \

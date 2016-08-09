@@ -1,10 +1,5 @@
 ﻿#include "groupmsgbutton.h"
 
-GroupMsgButton::GroupMsgButton()
-{
-
-}
-
 GroupMsgButton::GroupMsgButton(M_Message msg):
     MessageButton(msg._sender._name,msg._sender._data,msg._time/*,msg._sender._head*/)
 {

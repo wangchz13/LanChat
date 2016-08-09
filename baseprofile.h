@@ -14,7 +14,7 @@ class BaseProfile
 {
 public:
     BaseProfile();
-    BaseProfile(QString name, QString data, QImage head = contactHead)
+    BaseProfile(QString name, QString data, QImage head)
         :_name(name),_data(data),_head(head){}
 
     QString _name;

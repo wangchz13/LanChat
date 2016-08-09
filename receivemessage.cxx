@@ -22,7 +22,7 @@ void MessageReceiver::readyReadSlot()
     in >> temp;
     type = (MessageType)temp;
     switch (type) {
-    case MessageType::Login:
+    case MessageType::login:
         {
             M_Login login;
             in >> login;
@@ -30,7 +30,7 @@ void MessageReceiver::readyReadSlot()
             qDebug() << login._userName;
         }
         break;
-    case MessageType::Message:
+    case MessageType::message:
         {
             M_Message msg;
             in >> msg;

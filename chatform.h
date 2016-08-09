@@ -3,6 +3,10 @@
 
 #include <QWidget>
 #include <QVector>
+#include <QImage>
+
+#include "global.h"
+#include "protocol.h"
 
 class QLabel;
 class QVBoxLayout;
@@ -18,27 +22,25 @@ class ChatForm : public QWidget
 
 public:
     explicit ChatForm(QWidget *parent = 0);
-    explicit ChatForm( QString title, QString context, QPixmap *head=NULL,QWidget *parent=0);
+    ChatForm(QString title, QString context, QImage head, ProfileType type, QWidget *parent=0);
     ~ChatForm();
     void initForm();
+
+    operator ==(const ChatForm &rhs){
+        return this->_title == rhs._title && this->_type == rhs._type;
+    }
+
 private slots:
     void on_sendMsgButton_clicked();
 
 private:
     Ui::ChatForm *ui;
 
-    QString m_title;
-    QString m_preview;
-    QPixmap *m_head;
+    QString _title;
+    QString _data;
+    QImage _head;
 
-    QLabel *m_previewLabel;
-
-    QWidget *m_parent;
-
-    QString bid;
-    QVBoxLayout *browserLayout;
-
-    QVector<QTextBrowser *> msgVector;
+    int _type;
 };
 
 #endif // CHATFORM_H

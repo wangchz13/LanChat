@@ -22,7 +22,7 @@ QImage defaultHead;
 QImage contactHead;
 QImage groupHead;
 QPixmap *head;
-
+QVector<ChatForm*> currentChatVec;
 void initGlobalEnvironment(){
     currentOnline = 0;
     userName = getUserName();

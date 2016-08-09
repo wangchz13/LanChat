@@ -8,6 +8,7 @@
 #ifndef PROFILEBUTTON_H
 #define PROFILEBUTTON_H
 #include "basebutton.h"
+#include "protocol.h"
 
 class ProfileButton : public BaseButton
 {
@@ -17,6 +18,8 @@ public:
 
     void mouseDoubleClickEvent(QMouseEvent *e){}
     void mouseReleaseEvent(QMouseEvent *e){}
+
+    ProfileType _type;
 };
 
 #endif // PROFILEBUTTON_H
