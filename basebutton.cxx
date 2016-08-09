@@ -5,7 +5,7 @@ BaseButton::BaseButton(QPushButton *parent) : QPushButton(parent)
 
 }
 
-BaseButton::BaseButton(QString title, QString data, QImage head = defaultHead):
+BaseButton::BaseButton(QString title, QString data, QImage head):
     _title(title),
     _data(data),
     _head(head)
