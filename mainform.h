@@ -34,7 +34,6 @@ public:
     void initGroupPage();
     void initBottomWidget();
 public slots:
-    void newMessage(QString title, QString data, QString time, QPixmap *head=NULL );
     void newContact( QString userName, QString computerName, QString ipAddress,QPixmap *head=NULL);
     void newGroup();
 
@@ -54,7 +53,8 @@ private:
     QVBoxLayout *_contactLayout;
     QVBoxLayout *_groupLayout;
 
-    QVector<MessageButton*> _msgVector;
+    QVector<ContactMsgButton *> _contactMsgVec;
+
     QVector<ContactButton*> _contactVector;
     QVector<GroupButton*> _groupVector;
 };
