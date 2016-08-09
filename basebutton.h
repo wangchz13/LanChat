@@ -22,8 +22,10 @@ public:
     explicit BaseButton(QPushButton *parent = 0);
     BaseButton(QString title, QString data, QImage head =defaultHead);
     virtual ~BaseButton();
+
     virtual void mouseDoubleClickEvent(QMouseEvent *e)=0;
     virtual void mouseReleaseEvent(QMouseEvent *e)=0;
+
     bool operator ==(const BaseButton &rhs){
         return this->_title == rhs._title;
     }
