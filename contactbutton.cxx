@@ -15,7 +15,8 @@ void ContactButton::mouseDoubleClickEvent(QMouseEvent *e)
 {
     ChatForm *c = new ChatForm(this->_title,this->_data,this->_head, this->_type);
     for(int i = 0; i < currentChatVec.size(); ++i){
-        if(currentChatVec[i] == *c){
+        if(*currentChatVec[i] == *c){
+            currentChatVec[i]->show();
             currentChatVec[i]->raise();
             return;
         }
