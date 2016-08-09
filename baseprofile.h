@@ -9,14 +9,16 @@
 #define BASEPROFILE_H
 #include "global.h"
 #include <QImage>
+#include <QString>
 
 class BaseProfile
 {
 public:
     BaseProfile();
-    BaseProfile(QString name, QString data, QImage head)
+    BaseProfile(QString name, QString data, QImage head=defaultHead)
         :_name(name),_data(data),_head(head){}
 
+public:
     QString _name;
     QString _data;
     QImage _head;
