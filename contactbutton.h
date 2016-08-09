@@ -9,7 +9,7 @@
 #define CONTACTBUTTON_H
 
 #include "profilebutton.h"
-#include "contact.h"
+#include "contactprofile.h"
 #include "chatform.h"
 
 #include "global.h"
@@ -18,7 +18,7 @@ class ContactButton : public ProfileButton
 {
 public:
     ContactButton();
-    ContactButton(Contact contact);
+    ContactButton(ContactProfile contact);
 
     void mouseDoubleClickEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
