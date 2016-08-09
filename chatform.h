@@ -1,4 +1,11 @@
-﻿#ifndef CHATFORM_H
+﻿/*******************************************
+**
+** 类名：ChatForm
+** 父类：QWidget
+** 作用：聊天界面，包括
+**
+** ****************************************/
+#ifndef CHATFORM_H
 #define CHATFORM_H
 
 #include <QWidget>
