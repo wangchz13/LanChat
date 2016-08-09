@@ -47,7 +47,7 @@ private:
     QString _data;
     QImage _head;
 
-    int _type;
+    ProfileType _type;
 };
 
 #endif // CHATFORM_H
