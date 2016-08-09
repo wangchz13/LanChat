@@ -6,11 +6,11 @@
 #include <QImage>
 #include "global.h"
 
-class Contact : BaseProfile
+class Contact : public BaseProfile
 {
 public:
     Contact();
-    Contact(QString name, QString data, QImage head);
+    Contact(QString name, QString data, QImage head=contactHead);
 };
 
 #endif // CONTACT_H
