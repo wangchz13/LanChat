@@ -1,10 +1,12 @@
 ﻿#include "contactmsgbutton.h"
 
+#include "chatform.h"
+
 ContactMsgButton::ContactMsgButton(M_Message msg):
-    MessageButton(msg._sender._name,msg._sender._data,msg._time/*,msg._sender._head*/)
+    MessageButton(msg._userName,msg._data,msg._time)
 {
-    _profile->_name = msg._sender._name;
-    _profile->_data = msg._sender._data;
+    //_profile->_name = msg._userName;
+    //_profile->_data = msg._data;
     /*头像未设置*/
     _timeLabel = new QLabel(_time);
     _countLabel = new QLabel;
@@ -18,6 +20,19 @@ ContactMsgButton::ContactMsgButton(M_Message msg):
 
 void ContactMsgButton::mouseDoubleClickEvent(QMouseEvent *e)
 {
+    this->_count = 0;
+    this->_countLabel->setText("");
+
+    ChatForm *c = new ChatForm(this->_title,this->_data,this->_head, ProfileType::contact);
+    for(int i = 0; i < currentChatVec.size(); ++i){
+        if(*currentChatVec[i] == *c){
+            currentChatVec[i]->show();
+            currentChatVec[i]->raise();
+            return;
+        }
+    }
+    c->show();
+    currentChatVec.push_back(c);
 
 }
 
