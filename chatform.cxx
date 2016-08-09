@@ -42,13 +42,13 @@ void ChatForm::initForm()
 
 void ChatForm::on_sendMsgButton_clicked()
 {
-//    QString msg = ui->msgTextEdit->toHtml();
-//    if(msg.isEmpty())
-//        return;
-//    M_Message message(m_title, msg, DataProcess::creatKey());
-//    MessageSender messageSender(message);
-//    messageSender.send();
+    QString msg = ui->msgTextEdit->toHtml();
+    if(msg.isEmpty())
+        return;
+    M_Message message(userName+"["+computerName+"]", msg, ipAddress, QDateTime::currentDateTime().toString(), this->_type);
+    MessageSender messageSender(message);
+    messageSender.send();
 
-//    ui->msgTextEdit->clear();
-//    ui->msgTextEdit->setFocus();
+    ui->msgTextEdit->clear();
+    ui->msgTextEdit->setFocus();
 }
