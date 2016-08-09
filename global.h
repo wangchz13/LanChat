@@ -6,7 +6,6 @@
 #include <QImage>
 #include <QVector>
 
-#include "chatform.h"
 class ChatForm;
 
 extern int currentOnline;
