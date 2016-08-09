@@ -15,8 +15,8 @@ class MessageButton : public BaseButton
 {
 public:
     MessageButton(QString title, QString data, QString time, QImage head = defaultHead);
-    void mouseDoubleClickEvent(QMouseEvent *e){}
-    void mouseReleaseEvent(QMouseEvent *e){}
+    virtual void mouseDoubleClickEvent(QMouseEvent *e){}
+    virtual void mouseReleaseEvent(QMouseEvent *e){}
 public slots:
     void newMessageComing();
 public:
