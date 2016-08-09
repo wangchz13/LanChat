@@ -5,7 +5,7 @@
 #include <QVector>
 #include "contactprofile.h"
 
-class GroupProfile : BaseProfile
+class GroupProfile : public BaseProfile
 {
 public:
     GroupProfile();
