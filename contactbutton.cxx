@@ -5,7 +5,7 @@ ContactButton::ContactButton()
 
 }
 
-ContactButton::ContactButton(Contact contact):
+ContactButton::ContactButton(ContactProfile contact):
     ProfileButton(contact._name,contact._data,contact._head)
 {
     _type = ProfileType::contact;
