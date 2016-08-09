@@ -1,6 +1,8 @@
 ﻿#include "protocol.h"
 
 #include <QtNetwork>
+#include <QDesktopServices>
+
 QString DataProcess::toMD5(QString &pwd){
     QString md5;
     md5 = QCryptographicHash::hash(pwd.toLocal8Bit(), QCryptographicHash::Md5).toHex();
@@ -32,7 +34,7 @@ QString getComputerName()
 
 QString getUserName()
 {
-    QString name="123";
+    QString name = "我的电脑";
     return name;
 }
 
@@ -40,7 +42,7 @@ QString getIp()
 {
     QString ipAddress;
     QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-    // use the fip'dirst non-localhost IPv4 address
+    // use the fiirst non-localhost IPv4 address
     for (int i = 0; i < ipAddressesList.size(); ++i) {
         if (ipAddressesList.at(i).toString().contains("192.168.1")) {
             ipAddress = ipAddressesList.at(i).toString();
