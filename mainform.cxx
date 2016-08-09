@@ -2,10 +2,12 @@
 #include "ui_mainform.h"
 #include "messagebutton.h"
 #include "databaseconnector.h"
+#include "contactprofile.h"
 
 #include <QDateTime>
 #include <QScrollBar>
 #include <QLayout>
+
 
 MainForm::MainForm(QWidget *parent) :
     QWidget(parent),
@@ -89,7 +91,7 @@ void MainForm::newMessage(QString title, QString data, QString time, QPixmap *he
 
 void MainForm::newContact(QString userName, QString computerName, QString ipAddress, QPixmap *head)
 {
-    Contact c(userName + "[" + computerName + "]",ipAddress);
+    ContactProfile c(userName + "[" + computerName + "]",ipAddress, ipAddress);
     ContactButton *button = new ContactButton(c);
     _contactVector.insert(0,button);
     _contactLayout->insertWidget(0,_contactVector[0]);
