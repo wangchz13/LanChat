@@ -28,7 +28,9 @@ SOURCES += main.cxx\
     baseprofile.cxx \
     contactprofile.cxx \
     groupprofile.cxx \
-    profilebutton.cxx
+    profilebutton.cxx \
+    contact.cxx \
+    group.cxx
 
 HEADERS  += \
     protocol.h \
@@ -47,7 +49,9 @@ HEADERS  += \
     baseprofile.h \
     contactprofile.h \
     groupprofile.h \
-    profilebutton.h
+    profilebutton.h \
+    contact.h \
+    group.h
 
 FORMS += \
     mainform.ui \
