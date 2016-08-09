@@ -1,11 +1,11 @@
 ﻿#ifndef CONTACTMSGBUTTON_H
 #define CONTACTMSGBUTTON_H
 
-#include "basebutton.h"
+#include "messagebutton.h"
 #include "contact.h"
 #include "protocol.h"
 
-class ContactMsgButton : public BaseButton
+class ContactMsgButton : public MessageButton
 {
 public:
     ContactMsgButton();
@@ -13,14 +13,7 @@ public:
 
     void mouseDoubleClickEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
-public:
-    QString _time;
-    quint16 _count;
 
-private:
-    QLabel *_timeLabel;
-    QLabel *_countLabel;
-    Contact _contact;
 };
 
 #endif // CONTACTMSGBUTTON_H

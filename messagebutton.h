@@ -25,7 +25,7 @@ public:
 
     QLabel *_timeLabel;
     QLabel *_countLabel;
-    BaseProfile *profile;
+    BaseProfile *_profile;
 };
 
 #endif // MESSAGEBOX_H

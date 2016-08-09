@@ -6,12 +6,10 @@ GroupMsgButton::GroupMsgButton()
 }
 
 GroupMsgButton::GroupMsgButton(M_Message msg):
-    BaseButton(msg._sender._name,msg._sender._data/*,msg._sender._head*/),
-    _time(msg._time),
-    _count(0)
+    MessageButton(msg._sender._name,msg._sender._data,msg._time/*,msg._sender._head*/)
 {
-    _group._groupName = msg._sender._name;
-    _group._data = msg._sender._data;
+    _profile->_name = msg._sender._name;
+    _profile->_data = msg._sender._data;
     /*头像未设置*/
     _timeLabel = new QLabel(_time);
     _countLabel = new QLabel;
