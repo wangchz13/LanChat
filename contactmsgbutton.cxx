@@ -5,6 +5,7 @@
 ContactMsgButton::ContactMsgButton(M_Message msg):
     MessageButton(msg._userName,msg._data,msg._time)
 {
+    _profile = new ContactProfile(msg._userName,msg._data,msg._ipAddress);
     //_profile->_name = msg._userName;
     //_profile->_data = msg._data;
     /*头像未设置*/
