@@ -18,7 +18,7 @@ public:
     virtual void mouseDoubleClickEvent(QMouseEvent *e){}
     virtual void mouseReleaseEvent(QMouseEvent *e){}
 public slots:
-    void newMessageComing();
+    void refresh();
 public:
     QString _time;
     quint16 _count;
