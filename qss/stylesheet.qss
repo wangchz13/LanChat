@@ -1,41 +1,45 @@
+﻿QLabel{
+    font-family:"Microsoft YaHei UI";
+}
 /*设置消息按钮样式*/
-MessageButton{
+BaseButton{
     border:1px solid #F0F0F0;
     border-top-color:#D4E0E1;
 }
 /*设置标签样式*/
-MessageButton QLabel{
-    font-family:"Microsoft YaHei UI";
-}
+
 /*设置鼠标悬停样式*/
-MessageButton:hover{
+BaseButton:hover{
     background-color:#FCF0C1;
 }
 /*设置鼠标按下样式*/
-MessageButton:pressed{
+BaseButton:pressed{
     background-color:#FCE99F;
 }
 /*设置消息标题样式*/
-MessageButton QLabel#titleLabel{
+BaseButton QLabel#titleLabel{
     font-size:14px;
+    color:black;
+}
+BaseButton QLabel#dataLabel{
+    font-size:12px;
+    color:gray;
 }
 /*设置消息预览样式*/
-MessageButton QLabel#previewLabel{
-    font-size:12px;
-    color:gray;
+MessageButton#timeLabel{
 }
-/*设置时间样式*/
-MessageButton QLabel#timeLabel{
-    color:gray;
-}
-/*设置消息提醒样式*/
-MessageButton QLabel#countLabel{
-    font-size:12px;
+MessageButton#countLabel{
     color:red;
 }
 
-ChatDialog{
-    background-image:url(:/source/main.png);
+QPushButton#closeButton{
+    background-color: yellow;
+    border-style: outset;
+    border-width:1px;
+    border-radius:10px;
+    border-color: beige;
+    font: 14px;
+    padding:6px;
 }
 
 
