@@ -143,7 +143,9 @@ MessageButton::MessageButton(QString title, QString data, QString time, QImage h
     //调用者应该有一句MessageButton.profile = new contact...
 
     _timeLabel = new QLabel(_time);
+    _timeLabel->setObjectName("timeLabel");
     _countLabel = new QLabel;
+    _countLabel->setObjectName("countLabel");
 
     _titleHLayout->addStretch();
     _titleHLayout->addWidget(_timeLabel);
