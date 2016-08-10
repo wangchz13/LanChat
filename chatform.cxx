@@ -27,6 +27,9 @@ ChatForm::ChatForm(QString title, QString data, QImage head, ProfileType type, Q
     ui->headLabel->setPixmap(QPixmap::fromImage(_head));
     ui->titleLabel->setText(_title);
     ui->previewLabel->setText(_data);
+
+    ui->closeButton->setObjectName("closeButton");
+    ui->sendMsgButton->setObjectName("sendMsgButton");
 }
 
 ChatForm::~ChatForm()
@@ -48,7 +51,7 @@ void ChatForm::newMessageComing(M_Message msg)
 
 void ChatForm::on_sendMsgButton_clicked()
 {
-    QString msg = ui->msgTextEdit->toHtml();
+    QString msg = ui->msgTextEdit->toPlainText();
     if(msg.isEmpty())
         return;
     M_Message message(userName+"["+computerName+"]", msg, ipAddress, QDateTime::currentDateTime().time().toString(), this->_type);
