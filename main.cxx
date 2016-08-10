@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     sender.send();
 
 
-    QObject::connect(rcv,SIGNAL(newMessage(M_Message)),mainForm,SLOT(newMessageSlot(M_Message)));
     QObject::connect(rcv,SIGNAL(newBuddy(M_Login)),mainForm,SLOT(newBuddySlot(M_Login)));
+    QObject::connect(rcv,SIGNAL(newMessage(M_Message)),mainForm,SLOT(newMessageSlot(M_Message)));
     return a.exec();
 }
