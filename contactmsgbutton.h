@@ -9,7 +9,7 @@
 #define CONTACTMSGBUTTON_H
 
 #include "messagebutton.h"
-#include "contact.h"
+#include "contactprofile.h"
 #include "protocol.h"
 
 class ContactMsgButton : public MessageButton
