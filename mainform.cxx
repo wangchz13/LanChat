@@ -92,33 +92,43 @@ void MainForm::newBuddySlot(M_Login login)
 
 void MainForm::newMessageSlot(M_Message msg)
 {
-    qDebug() << "Heer";
     ui->msgHintLabel->hide();
     if(msg._type == ProfileType::contact){
         ContactMsgButton *cmb = new ContactMsgButton(msg);
-        bool flag = true;
+        bool flag = false;
         for(int i = 0; i < _contactMsgVec.size(); i++){
             if(*_contactMsgVec[i] == *cmb){//有此消息
                 _contactMsgVec.move(i, 0);
                 _contactMsgVec[0]->_data = cmb->_data;
                 _msgLayout->removeWidget(_contactMsgVec[0]);
-                flag = false;
+                delete cmb;
+                cmb = _contactMsgVec[i];
+                flag = true;
                 break;
             }
         }
-        if(flag){
+        if(!flag){
             _contactMsgVec.insert(0, cmb);
-            qDebug() << "1";
         }
-        qDebug() << "2";
-        _msgLayout->insertWidget(0,_contactMsgVec[0]);
-        qDebug() << "3";
-        _contactMsgVec[0]->newMessageComing();
-        qDebug() << "4";
+        _msgLayout->insertWidget(0, cmb);
+        cmb->refresh();
+        ChatForm *cf = new ChatForm(cmb->_profile->_name,cmb->_profile->_data,cmb->_profile->_head, ProfileType::contact);
+        flag = false;
+        for(int i = 0; i < currentChatVec.size(); ++i){
+            if(*currentChatVec[i] == *cf){
+                delete cf;
+                cf = currentChatVec[i];
+                flag = true;
+                break;
+            }
+        }
+        if(!flag){
+            currentChatVec.push_back(cf);
+        }
+        cf->newMessageComing(msg);
     }else if(msg._type == ProfileType::group){
 
     }
-
 }
 
 void MainForm::clearAllMsg()
