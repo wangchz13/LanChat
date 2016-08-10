@@ -13,11 +13,12 @@ BaseButton::BaseButton(QString title, QString data, QImage head):
     setContextMenuPolicy(Qt::ActionsContextMenu);
     setCheckable(true);
     setFixedHeight(60);
+    setWindowFlags(Qt::FramelessWindowHint);
 
     _titleLabel = new QLabel(_title);//设置标题
     _titleLabel->setObjectName(tr("titleLabel"));
     _dataLabel = new QLabel(_data);//设置数据
-    _titleLabel->setObjectName(tr("dataLabel"));
+    _dataLabel->setObjectName(tr("dataLabel"));
     _headLabel = new QLabel;//设置头像
     _headLabel->setFixedSize(40, 40);
     _headLabel->setPixmap(QPixmap::fromImage(_head));
@@ -29,6 +30,7 @@ BaseButton::BaseButton(QString title, QString data, QImage head):
 
     _combineVLayout = new QVBoxLayout;
     _combineVLayout->addLayout(_titleHLayout);
+    _combineVLayout->addStretch();
     _combineVLayout->addLayout(_dataHLayout);
 
     _mainHLayout = new QHBoxLayout(this);
