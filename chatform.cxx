@@ -31,7 +31,6 @@ ChatForm::ChatForm(QString title, QString data, QImage head, ProfileType type, Q
 
 ChatForm::~ChatForm()
 {
-    qDebug() << "be destory\n";
     delete ui;
 }
 
@@ -40,12 +39,19 @@ void ChatForm::initForm()
 
 }
 
+void ChatForm::newMessageComing(M_Message msg)
+{
+    ui->msgBrowser->setTextColor(Qt::blue);
+    ui->msgBrowser->append(msg._userName + msg._time);
+    ui->msgBrowser->append(msg._data);
+}
+
 void ChatForm::on_sendMsgButton_clicked()
 {
     QString msg = ui->msgTextEdit->toHtml();
     if(msg.isEmpty())
         return;
-    M_Message message(userName+"["+computerName+"]", msg, ipAddress, QDateTime::currentDateTime().toString(), this->_type);
+    M_Message message(userName+"["+computerName+"]", msg, ipAddress, QDateTime::currentDateTime().time().toString(), this->_type);
     MessageSender messageSender(message);
     messageSender.send();
 
