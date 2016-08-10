@@ -152,7 +152,7 @@ MessageButton::MessageButton(QString title, QString data, QString time, QImage h
     _dataHLayout->addWidget(_countLabel);
 }
 
-void MessageButton::newMessageComing()
+void MessageButton::refresh()
 {
     _countLabel->show();
     _count++;
