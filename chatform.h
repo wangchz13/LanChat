@@ -37,6 +37,7 @@ public:
         return this->_title == rhs._title && this->_type == rhs._type;
     }
 
+    void newMessageComing(M_Message msg);
 private slots:
     void on_sendMsgButton_clicked();
 
