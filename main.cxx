@@ -29,9 +29,9 @@ void initGlobalEnvironment(){
     computerName = getComputerName();
     ipAddress = getIp();
     head = new QPixmap(":/source/head.png");
-    defaultHead = QImage();
-    contactHead = QImage();
-    groupHead = QImage();
+    defaultHead = QImage(":/source/g40.png");
+    contactHead = QImage(":/source/g40.png");
+    groupHead = QImage(":/source/g40.png");
 }
 
 int main(int argc, char *argv[])
@@ -40,7 +40,8 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     QFile qss(":/qss/stylesheet.qss");
     qss.open(QFile::ReadOnly);
-    a.setStyleSheet(QLatin1String(qss.readAll()));
+    QString s(qss.readAll());
+    a.setStyleSheet(s);
     qss.close();
 
     initGlobalEnvironment();
