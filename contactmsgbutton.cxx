@@ -29,6 +29,7 @@ void ContactMsgButton::mouseDoubleClickEvent(QMouseEvent *e)
         if(*currentChatVec[i] == *c){
             currentChatVec[i]->show();
             currentChatVec[i]->raise();
+            currentChatVec[i]->setFocus();
             return;
         }
     }
