@@ -55,8 +55,8 @@ private:
 
     QVector<ContactMsgButton *> _contactMsgVec;
 
-    QVector<ContactButton*> _contactVector;
-    QVector<GroupButton*> _groupVector;
+    QVector<ContactButton*> _contactVec;
+    QVector<GroupButton*> _groupVec;
 };
 
 #endif // MAINFORM_H
