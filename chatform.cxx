@@ -54,7 +54,7 @@ void ChatForm::on_sendMsgButton_clicked()
     QString msg = ui->msgTextEdit->toPlainText();
     if(msg.isEmpty())
         return;
-    M_Message message(userName+"["+computerName+"]", msg, ipAddress, QDateTime::currentDateTime().time().toString(), this->_type);
+    M_Message message(myUserName+"["+myComputerName+"]", msg, myIpAddress, QDateTime::currentDateTime().time().toString(), this->_type);
     MessageSender messageSender(message);
     messageSender.send();
 
