@@ -21,7 +21,7 @@ signals:
     void buddyLeft();
 
 public slots:
-    void send();
+    void send(QHostAddress ip=QHostAddress::Broadcast);//默认发送给网关
 
 private:
     QByteArray data;
