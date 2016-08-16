@@ -9,9 +9,9 @@
 class ChatForm;
 
 extern int currentOnline;
-extern QString userName;
-extern QString computerName;
-extern QString ipAddress;
+extern QString myUserName;
+extern QString myComputerName;
+extern QString myIpAddress;
 
 extern QImage defaultHead;
 extern QImage contactHead;
