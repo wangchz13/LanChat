@@ -6,8 +6,8 @@
 #include <QDateTime>
 #include <QCryptographicHash>
 #include <QHostAddress>
+#include "contactprofile.h"
 
-#include "contact.h"
 namespace DataProcess {
     QString toMD5(QString &pwd);
     QString creatKey();
@@ -70,7 +70,7 @@ public:
     QString _ipAddress;
     QString _key;
 
-    Contact _sender;
+    ContactProfile _sender;
     QString _time;
     ProfileType _type;
 };
