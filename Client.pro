@@ -29,7 +29,6 @@ SOURCES += main.cxx\
     contactprofile.cxx \
     groupprofile.cxx \
     profilebutton.cxx \
-    contact.cxx \
     group.cxx
 
 HEADERS  += \
@@ -50,7 +49,6 @@ HEADERS  += \
     contactprofile.h \
     groupprofile.h \
     profilebutton.h \
-    contact.h \
     group.h
 
 FORMS += \
