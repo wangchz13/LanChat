@@ -15,9 +15,9 @@
 #include <QDebug>
 
 int currentOnline;
-QString userName;
-QString computerName;
-QString ipAddress;
+QString myUserName;
+QString myComputerName;
+QString myIpAddress;
 QImage defaultHead;
 QImage contactHead;
 QImage groupHead;
@@ -25,9 +25,9 @@ QPixmap *head;
 QVector<ChatForm*> currentChatVec;
 void initGlobalEnvironment(){
     currentOnline = 0;
-    userName = getUserName();
-    computerName = getComputerName();
-    ipAddress = getIp();
+    myUserName = getUserName();
+    myComputerName = getComputerName();
+    myIpAddress = getIp();
     head = new QPixmap(":/source/head.png");
     defaultHead = QImage(":/source/g40.png");
     contactHead = QImage(":/source/g40.png");
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     MessageReceiver *rcv = new MessageReceiver;
     rcv->listen();
 
-    M_Login login(userName, computerName,ipAddress);
+    M_Login login(myUserName, myComputerName,myIpAddress);
     MessageSender sender(login);
     sender.send();
 
