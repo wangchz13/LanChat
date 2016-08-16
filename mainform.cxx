@@ -4,6 +4,8 @@
 #include "databaseconnector.h"
 #include "contactprofile.h"
 #include "contactmsgbutton.h"
+#include "sendmessage.h"
+#include "protocol.h"
 
 #include <QDateTime>
 #include <QScrollBar>
@@ -73,8 +75,8 @@ void MainForm::newContact(QString userName, QString computerName, QString ipAddr
 {
     ContactProfile c(userName + "[" + computerName + "]",ipAddress, ipAddress);
     ContactButton *button = new ContactButton(c);
-    _contactVector.insert(0,button);
-    _contactLayout->insertWidget(0,_contactVector[0]);
+    _contactVec.insert(0,button);
+    _contactLayout->insertWidget(0,_contactVec[0]);
 }
 
 void MainForm::newGroup()
@@ -84,10 +86,25 @@ void MainForm::newGroup()
 
 void MainForm::newBuddySlot(M_Login login)
 {
+    ContactButton *cb = new ContactButton(ContactProfile(login._userName,login._ipAddress,login._ipAddress));
+    for(int i = 0; i < _contactVec.size(); i++){
+        if(*_contactVec[i] == *cb){
+            delete cb;
+            return;
+        }
+    }
+
     qDebug() << "new user coming!";
     currentOnline++;
     ui->onlineLabel->setText(tr("当前在线：%1 人").arg(QString::number(currentOnline)));
-    newContact(login._userName,login._computerName,login._ipAddress);
+//    newContact(login._userName,login._computerName,login._ipAddress);
+    _contactVec.push_front(cb);
+    _contactLayout->insertWidget(0,_contactVec[0]);
+    if(myIpAddress == login._ipAddress)
+        return;
+    M_Login my(myUserName, myComputerName,myIpAddress);
+    MessageSender sender(my);
+    sender.send(QHostAddress(login._ipAddress));
 }
 
 void MainForm::newMessageSlot(M_Message msg)
