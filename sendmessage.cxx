@@ -21,7 +21,7 @@ MessageSender::MessageSender(M_Message message)
 }
 
 
-void MessageSender::send()
+void MessageSender::send(QHostAddress ip)
 {
     QDataStream out(&data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_6);
@@ -36,5 +36,5 @@ void MessageSender::send()
     }
 
     QUdpSocket socket;
-    socket.writeDatagram(data.data(), data.size(), QHostAddress::Broadcast, port);
+    socket.writeDatagram(data.data(), data.size(), ip, port);
 }
