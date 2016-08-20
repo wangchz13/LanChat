@@ -2,6 +2,7 @@
 
 #include <QtNetwork>
 #include <QDesktopServices>
+#include <QDir>
 
 QString DataProcess::toMD5(QString &pwd){
     QString md5;
@@ -34,8 +35,8 @@ QString getComputerName()
 
 QString getUserName()
 {
-    QString name = "我的电脑";
-    return name;
+    QString name = QDir::homePath();
+    return name.section("/",-1,-1);
 }
 
 QString getIp()
