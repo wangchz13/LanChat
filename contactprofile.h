@@ -6,7 +6,7 @@ class ContactProfile : public BaseProfile
 {
 public:
     ContactProfile();
-    ContactProfile(QString name, QString data, QString ip, QImage head = contactHead);
+    ContactProfile(QString userName, QString computerName, QString ip, QImage head = contactHead);
 
     QString _ipAddress;
 
