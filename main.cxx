@@ -23,14 +23,16 @@ QImage contactHead;
 QImage groupHead;
 QPixmap *head;
 QVector<ChatForm*> currentChatVec;
+
 void initGlobalEnvironment(){
     currentOnline = 0;
     myUserName = getUserName();
     myComputerName = getComputerName();
     myIpAddress = getIp();
     head = new QPixmap(":/source/head.png");
-    defaultHead = QImage(":/source/g40.png");
-    contactHead = QImage(":/source/g40.png");
+    defaultHead = QImage(":/source/head/contacthead.png");
+    contactHead = QImage(":/source/head/contacthead.png");
+    contactHead = contactHead.scaled(40,40);
     groupHead = QImage(":/source/g40.png");
 }
 
@@ -44,13 +46,18 @@ int main(int argc, char *argv[])
     a.setStyleSheet(s);
     qss.close();
 
+    //初始化一些全局变量
     initGlobalEnvironment();
+
+    //主窗体显示
     MainForm *mainForm = new MainForm;
     mainForm->show();
 
+    //开始接受消息
     MessageReceiver *rcv = new MessageReceiver;
     rcv->listen();
 
+    //发送本机登录信息
     M_Login login(myUserName, myComputerName,myIpAddress);
     MessageSender sender(login);
     sender.send();
