@@ -5,8 +5,8 @@ ContactProfile::ContactProfile()
 
 }
 
-ContactProfile::ContactProfile(QString name, QString data, QString ip,QImage head):
-    BaseProfile(name, data, head),
+ContactProfile::ContactProfile(QString userName, QString computerName, QString ip, QImage head):
+    BaseProfile(userName+"["+computerName+"]", ip, head),
     _ipAddress(ip)
 {
 
