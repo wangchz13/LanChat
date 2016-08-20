@@ -8,5 +8,16 @@
         <file>source/head.png</file>
         <file>source/main.png</file>
         <file>qss/stylesheet.qss</file>
+        <file>source/head/1-150225211417-50.jpg</file>
+        <file>source/head/1-150225211418.jpg</file>
+        <file>source/head/1-150225211419.jpg</file>
+        <file>source/head/1-150225211419-50.jpg</file>
+        <file>source/head/1-150225211420.jpg</file>
+        <file>source/head/1-150225211420-50.jpg</file>
+        <file>source/head/1-150225211421.jpg</file>
+        <file>source/head/1-150225211422.jpg</file>
+        <file>source/head/1-150225211422-50.jpg</file>
+        <file>source/head/contacthead.png</file>
+        <file>source/head/grouphead.png</file>
     </qresource>
 </RCC>
