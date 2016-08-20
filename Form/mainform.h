@@ -47,6 +47,7 @@ private slots:
 
     void on_settingPushButton_toggled(bool checked);
 
+
 private:
     Ui::MainForm *ui;
     QVBoxLayout *_msgLayout;

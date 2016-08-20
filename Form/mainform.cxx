@@ -147,10 +147,7 @@ void MainForm::newMessageSlot(M_Message msg)
 
 void MainForm::clearAllMsg()
 {
-    while(_contactMsgVec.size()){
-        _msgLayout->removeWidget(_contactMsgVec.first());
-        _contactMsgVec.removeFirst();
-    }
+    _contactMsgVec.clear();
 }
 
 void MainForm::on_msgPushButton_toggled(bool checked)
@@ -167,5 +164,6 @@ void MainForm::on_contactPushButton_toggled(bool checked)
 
 void MainForm::on_settingPushButton_toggled(bool checked)
 {
-
+    if(checked)
+        ui->stackedWidget->setCurrentWidget(ui->group_Page);
 }
