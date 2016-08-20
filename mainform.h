@@ -34,7 +34,7 @@ public:
     void initGroupPage();
     void initBottomWidget();
 public slots:
-    void newContact( QString userName, QString computerName, QString ipAddress,QPixmap *head=NULL);
+
     void newGroup();
 
     void newBuddySlot(M_Login login);
