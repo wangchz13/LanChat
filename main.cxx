@@ -1,5 +1,4 @@
-﻿#include "mainpanel.h"
-
+﻿
 #include <QApplication>
 #include <QFile>
 #include <QTextCodec>
@@ -7,11 +6,11 @@
 #include <QImage>
 #include "protocol.h"
 #include "global.h"
-#include "receivemessage.h"
-#include "sendmessage.h"
+#include "Network/receivemessage.h"
+#include "Network/sendmessage.h"
 
-#include "mainform.h"
-#include "chatform.h"
+#include "Form/mainform.h"
+#include "Form/chatform.h"
 #include <QDebug>
 
 int currentOnline;

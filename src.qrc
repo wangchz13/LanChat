@@ -1,8 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>source/329071.jpg</file>
-        <file>source/count.png</file>
-        <file>source/count_1.png</file>
         <file>source/g.gif</file>
         <file>source/g40.png</file>
         <file>source/head.png</file>

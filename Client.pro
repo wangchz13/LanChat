@@ -14,42 +14,40 @@ TEMPLATE = app
 
 SOURCES += main.cxx\
     protocol.cxx \
-    sendmessage.cxx \
-    receivemessage.cxx \
-    messagebutton.cxx \
-    mainform.cxx \
-    chatform.cxx \
     databaseconnector.cxx \
-    basebutton.cxx \
-    contactmsgbutton.cxx \
-    groupmsgbutton.cxx \
-    contactbutton.cxx \
-    groupbutton.cxx \
-    baseprofile.cxx \
-    contactprofile.cxx \
-    groupprofile.cxx \
-    profilebutton.cxx \
-    group.cxx
+    Button/basebutton.cxx \
+    Button/contactbutton.cxx \
+    Button/contactmsgbutton.cxx \
+    Button/groupbutton.cxx \
+    Button/groupmsgbutton.cxx \
+    Button/messagebutton.cxx \
+    Button/profilebutton.cxx \
+    Form/chatform.cxx \
+    Form/mainform.cxx \
+    Network/receivemessage.cxx \
+    Network/sendmessage.cxx \
+    Profile/baseprofile.cxx \
+    Profile/contactprofile.cxx \
+    Profile/groupprofile.cxx
 
 HEADERS  += \
     protocol.h \
-    sendmessage.h \
-    receivemessage.h \
-    messagebutton.h \
-    mainform.h \
-    chatform.h \
     databaseconnector.h \
     global.h \
-    basebutton.h \
-    contactmsgbutton.h \
-    groupmsgbutton.h \
-    contactbutton.h \
-    groupbutton.h \
-    baseprofile.h \
-    contactprofile.h \
-    groupprofile.h \
-    profilebutton.h \
-    group.h
+    Button/basebutton.h \
+    Button/contactbutton.h \
+    Button/contactmsgbutton.h \
+    Button/groupbutton.h \
+    Button/groupmsgbutton.h \
+    Button/messagebutton.h \
+    Button/profilebutton.h \
+    Form/chatform.h \
+    Form/mainform.h \
+    Network/receivemessage.h \
+    Network/sendmessage.h \
+    Profile/baseprofile.h \
+    Profile/contactprofile.h \
+    Profile/groupprofile.h
 
 FORMS += \
     mainform.ui \
@@ -60,3 +58,9 @@ RESOURCES += \
 
 SUBDIRS += \
     ../../Button/Button.pro
+
+DISTFILES += \
+    .gitattributes \
+    .gitignore \
+    README.md \
+    Button/1.txt
