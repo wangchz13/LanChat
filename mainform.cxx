@@ -71,14 +71,6 @@ void MainForm::initBottomWidget()
     ui->onlineLabel->setText(tr("当前在线：%1人").arg(QString::number(currentOnline)));
 }
 
-void MainForm::newContact(QString userName, QString computerName, QString ipAddress, QPixmap *head)
-{
-    ContactProfile c(userName + "[" + computerName + "]",ipAddress, ipAddress);
-    ContactButton *button = new ContactButton(c);
-    _contactVec.insert(0,button);
-    _contactLayout->insertWidget(0,_contactVec[0]);
-}
-
 void MainForm::newGroup()
 {
 
@@ -86,10 +78,13 @@ void MainForm::newGroup()
 
 void MainForm::newBuddySlot(M_Login login)
 {
-    ContactButton *cb = new ContactButton(ContactProfile(login._userName,login._ipAddress,login._ipAddress));
+    //新建联系人，存储&刷新联系人面板
+    ContactButton *cb = new ContactButton(ContactProfile(login._userName,login._computerName,login._ipAddress));
+    //如果已经存在，本机重复登录
     for(int i = 0; i < _contactVec.size(); i++){
         if(*_contactVec[i] == *cb){
             delete cb;
+            qDebug() << "delete";
             return;
         }
     }
@@ -97,11 +92,13 @@ void MainForm::newBuddySlot(M_Login login)
     qDebug() << "new user coming!";
     currentOnline++;
     ui->onlineLabel->setText(tr("当前在线：%1 人").arg(QString::number(currentOnline)));
-//    newContact(login._userName,login._computerName,login._ipAddress);
-    _contactVec.push_front(cb);
-    _contactLayout->insertWidget(0,_contactVec[0]);
+
+    _contactVec.insert(0,cb);
+    _contactLayout->insertWidget(0,cb);
     if(myIpAddress == login._ipAddress)
         return;
+
+    //向新上线者发送一份自己的login信息
     M_Login my(myUserName, myComputerName,myIpAddress);
     MessageSender sender(my);
     sender.send(QHostAddress(login._ipAddress));
