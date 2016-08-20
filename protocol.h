@@ -29,6 +29,9 @@ public:
         :_userName(userName),
         _computerName(computerName),
         _ipAddress(ipAddress){}
+//    M_Login(QString userName, QString computerName,QString ipAddress)
+//        :_loginer(userName, computerName, ipAddress)
+//    {}
     friend QDataStream &operator <<(QDataStream &out, const M_Login &L){
         out << L._userName << L._computerName << L._ipAddress;
         return out;
@@ -47,6 +50,7 @@ public:
     QString _userName;
     QString _computerName;
     QString _ipAddress;
+//    ContactProfile _loginer;
 };
 
 class M_Message{
