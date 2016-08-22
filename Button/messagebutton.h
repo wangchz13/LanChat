@@ -10,11 +10,14 @@
 
 #include "Button/basebutton.h"
 #include "Profile/baseprofile.h"
+#include "protocol.h"
 
 class MessageButton : public BaseButton
 {
 public:
-    MessageButton(QString title, QString data, QString time, QImage head = defaultHead);
+    //MessageButton(QString title, QString data, QString time, QImage head = defaultHead);
+    MessageButton(M_Message message);
+    MessageButton(QString title, QString data, QString time);
     virtual void mouseDoubleClickEvent(QMouseEvent *e){}
     virtual void mouseReleaseEvent(QMouseEvent *e){}
 public slots:
@@ -25,7 +28,6 @@ public:
 
     QLabel *_timeLabel;
     QLabel *_countLabel;
-    BaseProfile *_profile;
 };
 
 #endif // MESSAGEBOX_H
