@@ -1,7 +1,7 @@
 ﻿#include "Form/chatform.h"
 #include "ui_chatform.h"
 
-#include "Network/sendmessage.h"
+#include "Network/messagesender.h"
 #include "protocol.h"
 #include "global.h"
 
