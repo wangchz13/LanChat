@@ -16,6 +16,7 @@
 
 class ContactButton : public ProfileButton
 {
+    Q_OBJECT
 public:
     ContactButton();
     ContactButton(ContactProfile contact);
@@ -23,6 +24,11 @@ public:
     void mouseDoubleClickEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
 
+signals:
+    void newChat(ContactProfile c);
+
+private:
+    ContactProfile _contact;
 };
 
 #endif // CONTACTBUTTON_H
