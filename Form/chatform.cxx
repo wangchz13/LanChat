@@ -3,6 +3,7 @@
 
 #include "Network/sendmessage.h"
 #include "protocol.h"
+#include "global.h"
 
 #include <QTextBrowser>
 #include <QVBoxLayout>
@@ -47,6 +48,7 @@ void ChatForm::newMessageComing(M_Message msg)
     qDebug() << "show message!";
     ui->msgBrowser->setTextColor(Qt::blue);
     ui->msgBrowser->append(msg._sender._userName +"[" + msg._sender._computerName + "]" + " " +msg._time);
+    ui->msgBrowser->setTextColor(Qt::black);
     ui->msgBrowser->append(msg._data);
 
 }
@@ -56,11 +58,20 @@ void ChatForm::on_sendMsgButton_clicked()
     QString msg = ui->msgTextEdit->toPlainText();
     if(msg.isEmpty())
         return;
-//    M_Message message(myUserName+"["+myComputerName+"]", msg, myIpAddress, QDateTime::currentDateTime().time().toString(), this->_type);//TODO:改参数
     M_Message message(myProfile, msg, QDateTime::currentDateTime().time().toString(),
                       this->_type);
     MessageSender messageSender(message);
-    messageSender.send();
+    //先给自己发一份
+    ui->msgBrowser->setTextColor(Qt::darkGreen);
+    ui->msgBrowser->append(myUserName+"[" + myComputerName + "]" + " " + message._time);
+    ui->msgBrowser->setTextColor(Qt::black);
+    ui->msgBrowser->append(message._data);
+    if(this->_type == ProfileType::contact){
+        messageSender.send(QHostAddress(this->_data));
+    }
+
+    else
+        messageSender.send();
 
     ui->msgTextEdit->clear();
     ui->msgTextEdit->setFocus();
