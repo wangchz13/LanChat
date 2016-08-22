@@ -25,7 +25,7 @@ public:
     void mouseReleaseEvent(QMouseEvent *e);
 
 signals:
-    void newChat(BaseProfile c);
+    void newChat(BaseProfile c, ProfileType t);
 
 private:
     ContactProfile _contact;
