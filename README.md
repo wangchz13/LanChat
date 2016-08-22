@@ -1,5 +1,6 @@
 # LanChat
 局域网聊天最终版
+环境：Windows 10 64位 + Qt 5.7 + Qt creator 4.3 + MinGw 5.3.0
 
 * [Button](https://github.com/wangchz13/LanChat/tree/master/Button):存放按钮相关类
 * [Form](https://github.com/wangchz13/LanChat/tree/master/Form):存放窗体相关类
