@@ -37,6 +37,18 @@ void MessageReceiver::readyReadSlot()
             emit newMessage(msg);
         }
         break;
+    case MessageType::fileRequest:
+        {
+            M_FileRequest request;
+            in >> request;
+            emit fileRequest(request);
+        }
+    case MessageType::refuseFile:
+        {
+            M_FileRequest refuse;
+            in >> refuse;
+            emit fileRefused(refuse);
+        }
     default:
         break;
     }

@@ -11,6 +11,7 @@ public:
     explicit MessageSender(QObject *parent = 0);
     MessageSender(M_Message message);
     MessageSender(M_Login login);
+    MessageSender(M_FileRequest request, MessageType type = MessageType::fileRequest);
 
     qint16 port=45454;
 signals:
@@ -22,12 +23,8 @@ public slots:
     void send(QHostAddress ip=QHostAddress::Broadcast);//默认发送给网关
 
 private:
-    QByteArray data;
+    QByteArray _data;
     MessageType _type;
-    M_Message _message;
-    M_Login _login;
-
-    QDataStream _buff;
 };
 
 #endif // SENDMESSAGE_H

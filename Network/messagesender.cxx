@@ -1,5 +1,6 @@
 ﻿#include "messagesender.h"
 #include <QUdpSocket>
+#include <QDataStream>
 
 #include <QDebug>
 using namespace DataProcess;
@@ -9,32 +10,35 @@ MessageSender::MessageSender(QObject *parent) : QObject(parent)
 }
 
 MessageSender::MessageSender(M_Login login)
-    : _login(login)
 {
     _type = MessageType::login;
+    QDataStream out(&_data, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_6);
+    out << (qint8)_type;
+    out << login;
+}
+
+MessageSender::MessageSender(M_FileRequest request, MessageType type)
+{
+    _type = type;
+    QDataStream out(&_data, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_6);
+    out << (qint8)_type;
+    out << request;
 }
 
 MessageSender::MessageSender(M_Message message)
-    : _message(message)
 {
     _type = MessageType::message;
+    QDataStream out(&_data, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_6);
+    out << (qint8)_type;
+    out << message;
 }
 
 
 void MessageSender::send(QHostAddress ip)
 {
-    QDataStream out(&data, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_5_6);
-    out  << (qint8)_type;
-    switch (_type) {
-    case MessageType::login:
-        out << _login;
-    case MessageType::message:
-        out << _message;
-    default:
-        break;
-    }
-
     QUdpSocket socket;
-    socket.writeDatagram(data.data(), data.size(), ip, port);
+    socket.writeDatagram(_data.data(), _data.size(), ip, port);
 }

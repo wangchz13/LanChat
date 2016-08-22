@@ -16,6 +16,8 @@ signals:
     void loginReturn(M_FeedBack fb);
     void newMessage(M_Message msg);
     void newBuddy(M_Login login);
+    void fileRequest(M_FileRequest request);
+    void fileRefused(M_FileRequest refuse);
 
 public slots:
     void readyReadSlot();

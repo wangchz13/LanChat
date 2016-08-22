@@ -18,11 +18,12 @@ QString getUserName();
 QString getComputerName();
 QString getIp();
 
-enum MessageType {login,message,myStateChange,contactStateChange,feedBack};
+enum MessageType {login,message,myStateChange,contactStateChange,feedBack,fileRequest,refuseFile};
 enum StateType {onLine,busy,offLine};
 enum ProfileType {contact,group};
 
-class M_Login{
+class M_Login
+{
 public:
     M_Login(){}
     M_Login(QString userName, QString computerName,QString ipAddress)
@@ -87,6 +88,27 @@ public:
     ProfileType _type;
 };
 
+class M_FileRequest{
+public:
+    M_FileRequest(){}
+    M_FileRequest(ContactProfile sender, QString fileName):
+        _sender(sender),_fileName(fileName){}
+
+    friend QDataStream &operator <<(QDataStream &out, const M_FileRequest &F){
+        out << F._sender << F._fileName;
+        return out;
+    }
+
+    friend QDataStream &operator >>(QDataStream &in, M_FileRequest &F){
+        in >> F._sender >> F._fileName;
+        return in;
+    }
+
+    ContactProfile _sender;
+    QString _fileName;
+};
+
+
 class M_Mystatechange{
 public:
     M_Mystatechange(StateType state, QString key) : _state(state), _key(key){}
@@ -148,6 +170,7 @@ private:
     qint8 _feed;
     QString _key;
 };
+
 
 
 #endif // PROTOCOL_H
