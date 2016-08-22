@@ -1,10 +1,11 @@
 ﻿#include "Form/mainform.h"
 #include "ui_mainform.h"
 #include "Button/messagebutton.h"
+#include "Button/contactmsgbutton.h"
+//#include "Button/groupbutton.h"
 #include "databaseconnector.h"
 #include "Profile/contactprofile.h"
-#include "Button/contactmsgbutton.h"
-#include "Network/sendmessage.h"
+#include "Network/messagesender.h"
 #include "protocol.h"
 
 #include <QDateTime>
@@ -86,7 +87,7 @@ void MainForm::newGroup()
 {
     GroupProfile lanGroup("大厅", "哈哈快来聊天吧！", QDateTime::currentDateTime().time().toString());
     GroupButton *gb = new GroupButton(lanGroup);
-    connect(gb, SIGNAL(newChat(BaseProfile)), this, SLOT(newChatSlot(BaseProfile)));
+    connect(gb, SIGNAL(newChat(BaseProfile,ProfileType)), this, SLOT(newChatSlot(BaseProfile,ProfileType)));
     _groupVec.push_back(gb);
     _groupLayout->insertWidget(0,gb);
 }
@@ -97,7 +98,6 @@ void MainForm::newBuddySlot(M_Login login)
 
     ContactButton *cb = new ContactButton(ContactProfile(login._userName,login._computerName,login._ipAddress));
 
-    //如果已经存在，例如本机重复登录
     for(int i = 0; i < _contactVec.size(); i++){
         if(*_contactVec[i] == *cb){
 
@@ -105,7 +105,7 @@ void MainForm::newBuddySlot(M_Login login)
             return;
         }
     }
-    connect(cb, SIGNAL(newChat(BaseProfile)), this, SLOT(newChatSlot(BaseProfile)));
+    connect(cb, SIGNAL(newChat(BaseProfile,ProfileType)), this, SLOT(newChatSlot(BaseProfile,ProfileType)));
     qDebug() << "new user coming!";
     currentOnline++;
     ui->onlineLabel->setText(tr("当前在线：%1 人").arg(QString::number(currentOnline)));
@@ -138,7 +138,7 @@ void MainForm::newMessageSlot(M_Message msg)
                                [cmb](ContactMsgButton *i){return *cmb == *i;});
 
         if(it == _contactMsgVec.end()){
-            connect(cmb, SIGNAL(newChat(BaseProfile)), this, SLOT(newChatSlot(BaseProfile)));
+            connect(cmb, SIGNAL(newChat(BaseProfile,ProfileType)), this, SLOT(newChatSlot(BaseProfile,ProfileType)));
             _contactMsgVec.push_back(cmb);
             it = _contactMsgVec.end() - 1;
         }else{
@@ -169,12 +169,12 @@ void MainForm::newMessageSlot(M_Message msg)
     }
 }
 
-void MainForm::newChatSlot(BaseProfile c)
+void MainForm::newChatSlot(BaseProfile c, ProfileType t)
 {
     using namespace std;
 //    ChatForm *cf = new ChatForm(c._userName+"["+c._computerName+"]", c._ipAddress, c._head,ProfileType::contact);
 
-    ChatForm *cf = new ChatForm(c._name, c._data, c._head,ProfileType::contact);
+    ChatForm *cf = new ChatForm(c._name, c._data, c._head, t);
 
     auto it = find_if(_currentChatVec.begin(), _currentChatVec.end(),
                       [cf](ChatForm *i){return *cf == *i;});
