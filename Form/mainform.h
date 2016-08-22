@@ -11,6 +11,7 @@
 #include "Button/contactmsgbutton.h"
 #include "Button/groupbutton.h"
 #include "Button/groupmsgbutton.h"
+#include "Form/chatform.h"
 
 namespace Ui {
 class MainForm;
@@ -33,13 +34,19 @@ public:
     void initContactPage();
     void initGroupPage();
     void initBottomWidget();
+
+    friend class ContactButton;
+    friend class ContactMsgButton;
 public slots:
 
     void newGroup();
 
     void newBuddySlot(M_Login login);
     void newMessageSlot(M_Message msg);
+
+    void newChatSlot(ContactProfile c);
     void clearAllMsg();
+
 private slots:
     void on_msgPushButton_toggled(bool checked);
 
@@ -54,10 +61,14 @@ private:
     QVBoxLayout *_contactLayout;
     QVBoxLayout *_groupLayout;
 
-    QVector<ContactMsgButton *> _contactMsgVec;
-
-    QVector<ContactButton*> _contactVec;
+    //消息页
+    QVector<ContactMsgButton *> _contactMsgVec; //存放私聊消息Button
+    //联系人页
+    QVector<ContactButton*> _contactVec;        //存放联系人Button
+    //群组页
     QVector<GroupButton*> _groupVec;
+
+    QVector<ChatForm*> _currentChatVec; //存放当前正在进行的会话Form
 };
 
 #endif // MAINFORM_H
