@@ -14,7 +14,7 @@ GroupButton::GroupButton(GroupProfile group):
 
 void GroupButton::mouseDoubleClickEvent(QMouseEvent *e)
 {
-
+    emit newChat(BaseProfile(_group._name, _group._data, _group._head));
 }
 
 void GroupButton::mouseReleaseEvent(QMouseEvent *e)
