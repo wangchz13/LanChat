@@ -108,15 +108,14 @@ void MainForm::newBuddySlot(M_Login login)
 void MainForm::newMessageSlot(M_Message msg)
 {
     using namespace std;
-    qDebug() << "newMessageSlot" << endl;
     ui->msgHintLabel->hide();
     if(msg._type == ProfileType::contact){
         ContactMsgButton *cmb = new ContactMsgButton(msg);
         auto it = std::find_if(_contactMsgVec.begin(), _contactMsgVec.end(),
                                [cmb](ContactMsgButton *i){return *cmb == *i;});
         if(it == _contactMsgVec.end()){
-            _contactMsgVec.insert(0,cmb);
-            it = _contactMsgVec.begin();
+            _contactMsgVec.push_back(cmb);
+            it = _contactMsgVec.end() - 1;
         }else{
             (*it)->_data = cmb->_data;
             _msgLayout->removeWidget(*it);
@@ -124,9 +123,9 @@ void MainForm::newMessageSlot(M_Message msg)
         }
         (*it)->refresh();
         _msgLayout->insertWidget(0, *it);
-        ChatForm *cf = new ChatForm((*it)->_profile->_name,
-                                    (*it)->_profile->_data,
-                                    (*it)->_profile->_head,
+        ChatForm *cf = new ChatForm((*it)->_contact._userName,
+                                    (*it)->_contact._ipAddress,
+                                    (*it)->_contact._head,
                                     ProfileType::contact);
         auto cfIt = std::find_if(_currentChatVec.begin(),_currentChatVec.end(),
                                  [cf](ChatForm *i){return *cf == *i;});
@@ -144,9 +143,18 @@ void MainForm::newMessageSlot(M_Message msg)
 
 void MainForm::newChatSlot(ContactProfile c)
 {
+    using namespace std;
     ChatForm *cf = new ChatForm(c._name, c._data, c._head,ProfileType::contact);
-    cf->show();
-    _currentChatVec.push_back(cf);
+    auto it = find_if(_currentChatVec.begin(), _currentChatVec.end(),
+                      [cf](ChatForm *i){return *cf == *i;});
+    if(it == _currentChatVec.end()){
+        _currentChatVec.push_back(cf);
+        it = _currentChatVec.end() - 1;
+    }else{
+        delete cf;
+    }
+    (*it)->show();
+    (*it)->raise();
 }
 
 void MainForm::clearAllMsg()
