@@ -6,6 +6,7 @@ ContactMsgButton::ContactMsgButton(M_Message msg):
     MessageButton(msg),
     _contact(msg._sender)
 {
+    this->_count = 0;
     int peer = _contact._ipAddress.right(3).toInt();
     int my = myIpAddress.right(3).toInt();
     _key = my * 256 + peer;
