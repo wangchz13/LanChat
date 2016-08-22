@@ -25,7 +25,7 @@ public:
         return _key == rhs._key;
     }
 signals:
-    void newChat(ContactProfile c);
+    void newChat(BaseProfile c);
 
 public:
 
