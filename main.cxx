@@ -1,16 +1,16 @@
-﻿
-#include <QApplication>
+﻿#include <QApplication>
 #include <QFile>
 #include <QTextCodec>
 #include <QDebug>
 #include <QImage>
+
 #include "protocol.h"
 #include "global.h"
 #include "Network/receivemessage.h"
 #include "Network/sendmessage.h"
-
 #include "Form/mainform.h"
 #include "Form/chatform.h"
+
 #include <QDebug>
 
 int currentOnline;
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     a.setStyleSheet(s);
     qss.close();
 
-    //初始化一些全局变量
+    //初始化一些全局量
     initGlobalEnvironment();
 
     //主窗体显示
