@@ -46,7 +46,7 @@ void ChatForm::newMessageComing(M_Message msg)
 {
     qDebug() << "show message!";
     ui->msgBrowser->setTextColor(Qt::blue);
-    ui->msgBrowser->append(msg._userName + " " +msg._time);
+    ui->msgBrowser->append(msg._sender._userName +"[" + msg._sender._computerName + "]" + " " +msg._time);
     ui->msgBrowser->append(msg._data);
 
 }
@@ -56,7 +56,9 @@ void ChatForm::on_sendMsgButton_clicked()
     QString msg = ui->msgTextEdit->toPlainText();
     if(msg.isEmpty())
         return;
-    M_Message message(myUserName+"["+myComputerName+"]", msg, myIpAddress, QDateTime::currentDateTime().time().toString(), this->_type);
+//    M_Message message(myUserName+"["+myComputerName+"]", msg, myIpAddress, QDateTime::currentDateTime().time().toString(), this->_type);//TODO:改参数
+    M_Message message(myProfile, msg, QDateTime::currentDateTime().time().toString(),
+                      this->_type);
     MessageSender messageSender(message);
     messageSender.send();
 
