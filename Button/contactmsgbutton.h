@@ -23,9 +23,13 @@ public:
     bool operator ==(const ContactMsgButton &rhs){
         return _key == rhs._key;
     }
+signals:
+    void newChat(ContactProfile c);
 
-private:
+public:
+
     int _key;
+    ContactProfile _contact;
 };
 
 #endif // CONTACTMSGBUTTON_H
