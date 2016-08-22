@@ -66,7 +66,9 @@ int main(int argc, char *argv[])
     sender.send();
 
 
-    QObject::connect(rcv,SIGNAL(newBuddy(M_Login)),mainForm,SLOT(newBuddySlot(M_Login)));
-    QObject::connect(rcv,SIGNAL(newMessage(M_Message)),mainForm,SLOT(newMessageSlot(M_Message)));
+    QObject::connect(rcv, SIGNAL(newBuddy(M_Login)),mainForm, SLOT(newBuddySlot(M_Login)));
+    QObject::connect(rcv, SIGNAL(newMessage(M_Message)),mainForm, SLOT(newMessageSlot(M_Message)));
+    QObject::connect(rcv, SIGNAL(fileRequest(M_FileRequest)), mainForm, SLOT(fileRequestSlot(M_FileRequest)));
+    QObject::connect(rcv, SIGNAL(fileRefused(M_FileRequest)), mainForm, SLOT(fileRefusedSlot(M_FileRequest)));
     return a.exec();
 }
