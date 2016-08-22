@@ -11,6 +11,7 @@
 #include <QDateTime>
 #include <QScrollBar>
 #include <QLayout>
+#include <QMessageBox>
 
 #include <qalgorithms.h>
 
@@ -167,6 +168,30 @@ void MainForm::newMessageSlot(M_Message msg)
     }else if(msg._type == ProfileType::group){
 
     }
+}
+
+void MainForm::fileRequestSlot(M_FileRequest request)
+{
+    QMessageBox::StandardButton ret
+    = QMessageBox::question(this, "接收文件",
+                            tr("是否接收来自 %1 的文件 %2 ?")
+                            .arg(request._sender._userName+"["+request._sender._computerName+"]")
+                            .arg(request._fileName),
+                            QMessageBox::Yes | QMessageBox::No,
+                            QMessageBox::Yes);
+    if(ret == QMessageBox::Yes){
+
+    }else{
+        MessageSender refuse(M_FileRequest(myProfile, request._fileName), MessageType::refuseFile);
+        refuse.send(QHostAddress(request._sender._ipAddress));
+    }
+}
+
+void MainForm::fileRefusedSlot(M_FileRequest refuse)
+{
+    QMessageBox::critical(this, "发送文件", tr("对方拒绝接受文件！"),
+                          QMessageBox::Yes,QMessageBox::Yes);
+
 }
 
 void MainForm::newChatSlot(BaseProfile c, ProfileType t)
