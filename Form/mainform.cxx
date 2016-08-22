@@ -11,6 +11,7 @@
 #include <QScrollBar>
 #include <QLayout>
 
+#include <qalgorithms.h>
 
 MainForm::MainForm(QWidget *parent) :
     QWidget(parent),
@@ -80,15 +81,15 @@ void MainForm::newBuddySlot(M_Login login)
 {
     //新建联系人，存储&刷新联系人面板
     ContactButton *cb = new ContactButton(ContactProfile(login._userName,login._computerName,login._ipAddress));
-    //如果已经存在，本机重复登录
+
+    //如果已经存在，例如本机重复登录
     for(int i = 0; i < _contactVec.size(); i++){
         if(*_contactVec[i] == *cb){
             delete cb;
-            qDebug() << "delete";
             return;
         }
     }
-
+    connect(cb, SIGNAL(newChat(ContactProfile)), this, SLOT(newChatSlot(ContactProfile)));
     qDebug() << "new user coming!";
     currentOnline++;
     ui->onlineLabel->setText(tr("当前在线：%1 人").arg(QString::number(currentOnline)));
@@ -106,43 +107,46 @@ void MainForm::newBuddySlot(M_Login login)
 
 void MainForm::newMessageSlot(M_Message msg)
 {
+    using namespace std;
+    qDebug() << "newMessageSlot" << endl;
     ui->msgHintLabel->hide();
     if(msg._type == ProfileType::contact){
         ContactMsgButton *cmb = new ContactMsgButton(msg);
-        bool flag = false;
-        for(int i = 0; i < _contactMsgVec.size(); i++){
-            if(*_contactMsgVec[i] == *cmb){//有此消息
-                _contactMsgVec.move(i, 0);
-                _contactMsgVec[0]->_data = cmb->_data;
-                _msgLayout->removeWidget(_contactMsgVec[0]);
-                delete cmb;
-                cmb = _contactMsgVec[i];
-                flag = true;
-                break;
-            }
+        auto it = std::find_if(_contactMsgVec.begin(), _contactMsgVec.end(),
+                               [cmb](ContactMsgButton *i){return *cmb == *i;});
+        if(it == _contactMsgVec.end()){
+            _contactMsgVec.insert(0,cmb);
+            it = _contactMsgVec.begin();
+        }else{
+            (*it)->_data = cmb->_data;
+            _msgLayout->removeWidget(*it);
+            delete cmb;
         }
-        if(!flag){
-            _contactMsgVec.insert(0, cmb);
+        (*it)->refresh();
+        _msgLayout->insertWidget(0, *it);
+        ChatForm *cf = new ChatForm((*it)->_profile->_name,
+                                    (*it)->_profile->_data,
+                                    (*it)->_profile->_head,
+                                    ProfileType::contact);
+        auto cfIt = std::find_if(_currentChatVec.begin(),_currentChatVec.end(),
+                                 [cf](ChatForm *i){return *cf == *i;});
+        if(cfIt == _currentChatVec.end()){
+            _currentChatVec.push_back(cf);
+            cfIt = _currentChatVec.end()-1;
+        }else{
+            delete cf;
         }
-        _msgLayout->insertWidget(0, cmb);
-        cmb->refresh();
-        ChatForm *cf = new ChatForm(cmb->_profile->_name,cmb->_profile->_data,cmb->_profile->_head, ProfileType::contact);
-        flag = false;
-        for(int i = 0; i < currentChatVec.size(); ++i){
-            if(*currentChatVec[i] == *cf){
-                delete cf;
-                cf = currentChatVec[i];
-                flag = true;
-                break;
-            }
-        }
-        if(!flag){
-            currentChatVec.push_back(cf);
-        }
-        cf->newMessageComing(msg);
+        (*cfIt)->newMessageComing(msg);
     }else if(msg._type == ProfileType::group){
 
     }
+}
+
+void MainForm::newChatSlot(ContactProfile c)
+{
+    ChatForm *cf = new ChatForm(c._name, c._data, c._head,ProfileType::contact);
+    cf->show();
+    _currentChatVec.push_back(cf);
 }
 
 void MainForm::clearAllMsg()
