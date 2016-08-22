@@ -7,6 +7,7 @@
 #include <QVector>
 
 class ChatForm;
+class ContactProfile;
 
 extern int currentOnline;
 extern QString myUserName;
@@ -20,4 +21,5 @@ extern QImage groupHead;
 extern QPixmap *head;
 
 extern QVector<ChatForm*> currentChatVec;
+extern ContactProfile myProfile;
 #endif // GLOBAL_H
