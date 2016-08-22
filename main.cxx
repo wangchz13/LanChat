@@ -22,6 +22,7 @@ QImage contactHead;
 QImage groupHead;
 QPixmap *head;
 QVector<ChatForm*> currentChatVec;
+ContactProfile myProfile;
 
 void initGlobalEnvironment(){
     currentOnline = 0;
@@ -33,6 +34,8 @@ void initGlobalEnvironment(){
     contactHead = QImage(":/source/head/contacthead.png");
     contactHead = contactHead.scaled(40,40);
     groupHead = QImage(":/source/g40.png");
+
+    myProfile = ContactProfile(myUserName, myComputerName, myIpAddress);
 }
 
 int main(int argc, char *argv[])
