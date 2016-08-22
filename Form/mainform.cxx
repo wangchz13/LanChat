@@ -94,8 +94,11 @@ void MainForm::newBuddySlot(M_Login login)
     currentOnline++;
     ui->onlineLabel->setText(tr("当前在线：%1 人").arg(QString::number(currentOnline)));
 
-    _contactVec.insert(0,cb);
-    _contactLayout->insertWidget(0,cb);
+    _contactVec.push_back(cb);
+    if(_contactLayout->isEmpty())
+        _contactLayout->insertWidget(0,cb);
+    else
+        _contactLayout->insertWidget(1,cb);
     if(myIpAddress == login._ipAddress)
         return;
 
@@ -122,8 +125,10 @@ void MainForm::newMessageSlot(M_Message msg)
             delete cmb;
         }
         (*it)->refresh();
+
         _msgLayout->insertWidget(0, *it);
-        ChatForm *cf = new ChatForm((*it)->_contact._userName,
+
+        ChatForm *cf = new ChatForm((*it)->_contact._userName+"["+(*it)->_contact._computerName+"]",
                                     (*it)->_contact._ipAddress,
                                     (*it)->_contact._head,
                                     ProfileType::contact);
