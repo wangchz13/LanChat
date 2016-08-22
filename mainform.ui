@@ -315,8 +315,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>280</width>
+            <height>267</height>
            </rect>
           </property>
          </widget>
@@ -345,6 +345,9 @@
         <widget class="QScrollArea" name="scrollArea_3">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="lineWidth">
+          <number>0</number>
          </property>
          <property name="widgetResizable">
           <bool>true</bool>
