@@ -20,6 +20,12 @@ public:
     void mouseDoubleClickEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
 
+    bool operator ==(const ContactMsgButton &rhs){
+        return _key == rhs._key;
+    }
+
+private:
+    int _key;
 };
 
 #endif // CONTACTMSGBUTTON_H
