@@ -18,7 +18,7 @@ void ContactMsgButton::mouseDoubleClickEvent(QMouseEvent *e)
 {
     this->_count = 0;
     this->_countLabel->setText("");
-    emit newChat(_contact);
+    emit newChat(BaseProfile(_contact._name, _contact._data, _contact._head));
 }
 
 void ContactMsgButton::mouseReleaseEvent(QMouseEvent *e)
