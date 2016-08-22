@@ -6,8 +6,8 @@
 
 #include "protocol.h"
 #include "global.h"
-#include "Network/receivemessage.h"
-#include "Network/sendmessage.h"
+#include "Network/messagereceiver.h"
+#include "Network/messagesender.h"
 #include "Form/mainform.h"
 #include "Form/chatform.h"
 
