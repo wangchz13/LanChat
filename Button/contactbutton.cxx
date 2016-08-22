@@ -1,29 +1,18 @@
 ﻿#include "contactbutton.h"
 
-ContactButton::ContactButton()
-{
-
-}
-
 ContactButton::ContactButton(ContactProfile contact):
-    ProfileButton(contact._name,contact._data,contact._head)
+    ProfileButton(contact._name,contact._data,contact._head),
+    _contact(contact)
 {
     _type = ProfileType::contact;
 }
 
 void ContactButton::mouseDoubleClickEvent(QMouseEvent *e)
 {
-    ChatForm *c = new ChatForm(this->_title,this->_data,this->_head, this->_type);
-    for(int i = 0; i < currentChatVec.size(); ++i){
-        if(*currentChatVec[i] == *c){
-            currentChatVec[i]->show();
-            currentChatVec[i]->raise();
-            return;
-        }
-    }
-    c->show();
-    currentChatVec.push_back(c);
+    emit newChat(_contact);
 }
+
+
 
 void ContactButton::mouseReleaseEvent(QMouseEvent *e)
 {
