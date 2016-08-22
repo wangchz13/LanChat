@@ -44,9 +44,11 @@ void ChatForm::initForm()
 
 void ChatForm::newMessageComing(M_Message msg)
 {
+    qDebug() << "show message!";
     ui->msgBrowser->setTextColor(Qt::blue);
-    ui->msgBrowser->append(msg._userName + msg._time);
+    ui->msgBrowser->append(msg._userName + " " +msg._time);
     ui->msgBrowser->append(msg._data);
+
 }
 
 void ChatForm::on_sendMsgButton_clicked()
