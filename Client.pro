@@ -24,11 +24,13 @@ SOURCES += main.cxx\
     Button/profilebutton.cxx \
     Form/chatform.cxx \
     Form/mainform.cxx \
-    Network/receivemessage.cxx \
-    Network/sendmessage.cxx \
     Profile/baseprofile.cxx \
     Profile/contactprofile.cxx \
-    Profile/groupprofile.cxx
+    Profile/groupprofile.cxx \
+    Network/filereceiver.cxx \
+    Network/filesender.cxx \
+    Network/messagereceiver.cxx \
+    Network/messagesender.cxx
 
 HEADERS  += \
     protocol.h \
@@ -43,11 +45,13 @@ HEADERS  += \
     Button/profilebutton.h \
     Form/chatform.h \
     Form/mainform.h \
-    Network/receivemessage.h \
-    Network/sendmessage.h \
     Profile/baseprofile.h \
     Profile/contactprofile.h \
-    Profile/groupprofile.h
+    Profile/groupprofile.h \
+    Network/filereceiver.h \
+    Network/filesender.h \
+    Network/messagereceiver.h \
+    Network/messagesender.h
 
 FORMS += \
     mainform.ui \
