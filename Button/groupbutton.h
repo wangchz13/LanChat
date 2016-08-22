@@ -17,7 +17,7 @@ public:
     void mouseReleaseEvent(QMouseEvent *e);
 
 signals:
-    void newChat(GroupProfile g);
+    void newChat(BaseProfile g);
 
 private:
     GroupProfile _group;
