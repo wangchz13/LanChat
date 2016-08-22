@@ -56,25 +56,33 @@ public:
 class M_Message{
 public:
     M_Message(){}
-    M_Message(QString userName, QString data, QString ipAddress, QString time,ProfileType type,QString key=""):
-        _userName(userName), _data(data), _ipAddress(ipAddress), _time(time), _type(type){}
+    M_Message(QString userName, QString computerName, QString ipAddress, QString data, QString time,ProfileType type):
+        _sender(userName, computerName, ipAddress),
+        _data(data),
+        _time(time),
+        _type(type){}
+    M_Message(ContactProfile sender, QString data, QString time, ProfileType type):
+        _sender(sender),
+        _data(data),
+        _time(time),
+        _type(type){}
     friend QDataStream &operator <<(QDataStream &out, const M_Message &M){
-        out << M._userName << M._data << M._ipAddress << M._time << qint8(M._type);
+        out << M._sender << M._data << M._time << qint8(M._type);
         return out;
     }
     friend QDataStream &operator >>(QDataStream &in, M_Message &M){
         qint8 t;
-        in >> M._userName >> M._data >> M._ipAddress >> M._time >> t;
+        in >> M._sender >> M._data >> M._time >> t;
         M._type = (ProfileType)t;
         return in;
     }
 
-    QString _userName;
-    QString _data;
-    QString _ipAddress;
-    QString _key;
+//    QString _userName;
+//    QString _ipAddress;
+//    QString _key;
 
     ContactProfile _sender;
+    QString _data;
     QString _time;
     ProfileType _type;
 };
