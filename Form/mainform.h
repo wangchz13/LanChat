@@ -39,6 +39,8 @@ public:
 
     friend class ContactButton;
     friend class ContactMsgButton;
+    friend class GroupButton;
+
 public slots:
 
     void newGroup();
@@ -46,7 +48,7 @@ public slots:
     void newBuddySlot(M_Login login);
     void newMessageSlot(M_Message msg);
 
-    void newChatSlot(BaseProfile c);
+    void newChatSlot(BaseProfile c, ProfileType t);
     void clearAllMsg();
 
 private slots:
