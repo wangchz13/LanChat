@@ -12,6 +12,7 @@
 #include "Button/groupbutton.h"
 #include "Button/groupmsgbutton.h"
 #include "Form/chatform.h"
+#include "Profile/baseprofile.h"
 
 namespace Ui {
 class MainForm;
@@ -45,7 +46,7 @@ public slots:
     void newBuddySlot(M_Login login);
     void newMessageSlot(M_Message msg);
 
-    void newChatSlot(ContactProfile c);
+    void newChatSlot(BaseProfile c);
     void clearAllMsg();
 
 private slots:
