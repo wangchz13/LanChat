@@ -9,7 +9,7 @@ ContactButton::ContactButton(ContactProfile contact):
 
 void ContactButton::mouseDoubleClickEvent(QMouseEvent *e)
 {
-    emit newChat(_contact);
+    emit newChat(BaseProfile(_contact._name, _contact._data, _contact._head));
 }
 
 
