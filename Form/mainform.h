@@ -33,6 +33,7 @@ public:
     void initMsgPage();
     void initContactPage();
     void initGroupPage();
+
     void initBottomWidget();
 
     friend class ContactButton;
