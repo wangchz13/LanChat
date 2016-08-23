@@ -33,7 +33,8 @@ void initGlobalEnvironment(){
     defaultHead = QImage(":/source/head/contacthead.png");
     contactHead = QImage(":/source/head/contacthead.png");
     contactHead = contactHead.scaled(40,40);
-    groupHead = QImage(":/source/g40.png");
+    groupHead = QImage(":/source/head/grouphead.png");
+    groupHead = groupHead.scaled(40,40);
 
     myProfile = ContactProfile(myUserName, myComputerName, myIpAddress);
 }
