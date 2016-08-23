@@ -24,7 +24,11 @@ MainForm::MainForm(QWidget *parent) :
 
     initMsgPage();
     initContactPage();
+    initGroupPage();
+
     initBottomWidget();
+
+    newGroup();
 }
 
 MainForm::~MainForm()
@@ -67,6 +71,14 @@ void MainForm::initContactPage()
     ui->scrollAreaWidgetContents_2->setLayout(_contactLayout);
 }
 
+void MainForm::initGroupPage()
+{
+    _groupLayout = new QVBoxLayout;
+    _groupLayout->setSpacing(0);
+    _groupLayout->addStretch();
+    ui->scrollAreaWidgetContents_3->setLayout(_groupLayout);
+}
+
 void MainForm::initBottomWidget()
 {
     ui->onlineLabel->setText(tr("当前在线：%1人").arg(QString::number(currentOnline)));
@@ -74,7 +86,10 @@ void MainForm::initBottomWidget()
 
 void MainForm::newGroup()
 {
-
+    GroupProfile lanGroup("大厅", "哈哈快来聊天吧！", QDateTime::currentDateTime().time().toString());
+    GroupButton *gb = new GroupButton(lanGroup);
+    _groupVec.push_back(gb);
+    _groupLayout->insertWidget(0,gb);
 }
 
 void MainForm::newBuddySlot(M_Login login)
@@ -99,6 +114,8 @@ void MainForm::newBuddySlot(M_Login login)
         _contactLayout->insertWidget(0,cb);
     else
         _contactLayout->insertWidget(1,cb);
+
+
     if(myIpAddress == login._ipAddress)
         return;
 
@@ -116,7 +133,9 @@ void MainForm::newMessageSlot(M_Message msg)
         ContactMsgButton *cmb = new ContactMsgButton(msg);
         auto it = std::find_if(_contactMsgVec.begin(), _contactMsgVec.end(),
                                [cmb](ContactMsgButton *i){return *cmb == *i;});
+
         if(it == _contactMsgVec.end()){
+            connect(cmb, SIGNAL(newChat(ContactProfile)), this, SLOT(newChatSlot(ContactProfile)));
             _contactMsgVec.push_back(cmb);
             it = _contactMsgVec.end() - 1;
         }else{
@@ -132,6 +151,7 @@ void MainForm::newMessageSlot(M_Message msg)
                                     (*it)->_contact._ipAddress,
                                     (*it)->_contact._head,
                                     ProfileType::contact);
+
         auto cfIt = std::find_if(_currentChatVec.begin(),_currentChatVec.end(),
                                  [cf](ChatForm *i){return *cf == *i;});
         if(cfIt == _currentChatVec.end()){
@@ -149,9 +169,10 @@ void MainForm::newMessageSlot(M_Message msg)
 void MainForm::newChatSlot(ContactProfile c)
 {
     using namespace std;
-    ChatForm *cf = new ChatForm(c._name, c._data, c._head,ProfileType::contact);
+    ChatForm *cf = new ChatForm(c._userName+"["+c._computerName+"]", c._ipAddress, c._head,ProfileType::contact);
     auto it = find_if(_currentChatVec.begin(), _currentChatVec.end(),
                       [cf](ChatForm *i){return *cf == *i;});
+
     if(it == _currentChatVec.end()){
         _currentChatVec.push_back(cf);
         it = _currentChatVec.end() - 1;
