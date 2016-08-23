@@ -150,7 +150,6 @@ void ChatForm::on_sendFileBtn_clicked()
     connect(this, SIGNAL(fileCancel()), fileWidget, SLOT(deleteLater()));
 
     FileSender *fileSender = new FileSender(filePath, QHostAddress(_data));
-    fileSender->initServer();
     fileSender->ready();
     connect(this, SIGNAL(fileCancel()), fileSender, SLOT(cancel()));
 //    connect(this, SIGNAL(fileSend()), fileSender, SLOT(send()));

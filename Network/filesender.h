@@ -20,7 +20,6 @@ public slots:
     void updateProgress(qint64 numBytes);
 
     void cancel();
-    void initServer();
 
 private slots:
     void send();
