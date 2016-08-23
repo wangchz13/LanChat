@@ -5,9 +5,9 @@ GroupProfile::GroupProfile()
 
 }
 
-GroupProfile::GroupProfile(QString name, QString data, QString time,QImage head):
-    BaseProfile(name, data, head),
-    _foundTime(time)
+GroupProfile::GroupProfile(QString groupName, QString groupData, QString foundTime, QImage head):
+    BaseProfile(groupName, groupData, head),
+    _foundTime(foundTime)
 {
-    _contactVec.clear();
+
 }
