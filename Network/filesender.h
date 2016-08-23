@@ -18,9 +18,12 @@ signals:
 public slots:
     void ready();
     void updateProgress(qint64 numBytes);
-    void send();
+
     void cancel();
     void initServer();
+
+private slots:
+    void send();
 private:
     qint16 _tcpPort;
     QTcpServer *_tcpServer;

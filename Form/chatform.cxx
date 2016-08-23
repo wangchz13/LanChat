@@ -79,7 +79,8 @@ void ChatForm::fileRequest(M_File request)
                             QMessageBox::Yes);
     if(ret == QMessageBox::Yes){
         qDebug() << "选择接收文件" << endl;
-        QString savePath = QFileDialog::getSaveFileName(0, tr("保存文件"), request._fileName);
+        qDebug() << request._fileName;
+        QString savePath = QFileDialog::getSaveFileName(0, tr("保存文件"),request._fileName);
         if(!savePath.isEmpty()){
             MessageSender receive(M_File(myProfile, request._fileName), MessageType::receiveFile);
             receive.send(QHostAddress(request._sender._ipAddress));
@@ -152,5 +153,5 @@ void ChatForm::on_sendFileBtn_clicked()
     fileSender->initServer();
     fileSender->ready();
     connect(this, SIGNAL(fileCancel()), fileSender, SLOT(cancel()));
-    connect(this, SIGNAL(fileSend()), fileSender, SLOT(send()));
+//    connect(this, SIGNAL(fileSend()), fileSender, SLOT(send()));
 }

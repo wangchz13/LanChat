@@ -13,9 +13,10 @@ FileReceiver::FileReceiver(QHostAddress serverIp, QString savePath)
     _bytesReceived = 0;
     _fileNameSize = 0;
     _hostAddress = serverIp;
-    _tcpClient = new QTcpSocket(this);
     _tcpPort = 6666;
-    _fileName = savePath;
+    _localFile = new QFile(savePath);
+
+    _tcpClient = new QTcpSocket(this);
     connect(_tcpClient, SIGNAL(readyRead()), this, SLOT(readyReadSlot()));
 }
 
@@ -27,16 +28,9 @@ void FileReceiver::receive()
     _time.start();
 }
 
-void FileReceiver::newConnect()
-{
-    _blockSize = 0;
-    _tcpClient->abort();
-    _tcpClient->connectToHost(_hostAddress, _tcpPort);
-    _time.start();
-}
-
 void FileReceiver::readyReadSlot()
 {
+    qDebug() << "正在接收文件" << endl;
     QDataStream in(_tcpClient);
     in.setVersion(QDataStream::Qt_5_7);
     float useTime = _time.elapsed();
@@ -70,7 +64,7 @@ void FileReceiver::readyReadSlot()
             qDebug() << "文件接收完毕";
         }
     }
-
+    qDebug() << "!!!!!!!!!!!!!!!!!!" << endl;
 }
 
 void FileReceiver::setFileName(QString fileName)

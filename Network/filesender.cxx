@@ -14,6 +14,7 @@ FileSender::FileSender(QString filePath, QHostAddress ipAddress)
 {
     _tcpPort = 6666;
     _filePath = filePath;
+    _fileName = filePath.right(filePath.size() - filePath.lastIndexOf('/')-1);
     _ipAddress = ipAddress;
     _payloadSize = 64*1024;
     _totalBytes = 0;
@@ -21,8 +22,7 @@ FileSender::FileSender(QString filePath, QHostAddress ipAddress)
     _bytesToWrite = 0;
 
     _tcpServer = new QTcpServer(this);
-    connect(_tcpServer,SIGNAL(newConnection()), this, SLOT(send()));
-
+    connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(send()));
     initServer();
 }
 
@@ -46,7 +46,6 @@ void FileSender::send()
 {
     qDebug() << "hasPendingConnections:"  <<_tcpServer->hasPendingConnections() << endl;
     _clientConnection = _tcpServer->nextPendingConnection();
-//    connect(_clientConnection, SIGNAL(bytesWritten(qint64)), this, SLOT(updateProgress(qint64)));
     _localFile = new QFile(_filePath);
     if(!_localFile->open(QFile::ReadOnly)){
         //TODO:emit something

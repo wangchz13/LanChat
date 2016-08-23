@@ -18,9 +18,11 @@ signals:
 
 public slots:
     void receive();
-    void newConnect();
-    void readyReadSlot();
+
     void setFileName(QString fileName);
+
+private slots:
+    void readyReadSlot();
 private:
     QTcpSocket *_tcpClient;
     quint16 _blockSize;

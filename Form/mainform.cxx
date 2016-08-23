@@ -172,6 +172,7 @@ void MainForm::newMessageSlot(M_Message msg)
 
 void MainForm::fileRequestSlot(M_File request)
 {
+    qDebug() << "fileRequestSlot:" << request._fileName;
     using namespace std;
     QString sender = request._sender._fullName;
     auto it = find_if(_currentChatVec.begin(), _currentChatVec.end(),
