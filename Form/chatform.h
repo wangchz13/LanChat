@@ -33,7 +33,7 @@ public:
     ~ChatForm();
     void initForm();
 
-    operator ==(const ChatForm &rhs){
+    bool operator ==(const ChatForm &rhs){
         return this->_title == rhs._title && this->_type == rhs._type;
     }
 
