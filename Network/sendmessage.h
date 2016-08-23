@@ -12,8 +12,6 @@ public:
     MessageSender(M_Message message);
     MessageSender(M_Login login);
 
-    QString getIP();
-    QString getUserName();
     qint16 port=45454;
 signals:
     void newBuddy();
@@ -28,6 +26,8 @@ private:
     MessageType _type;
     M_Message _message;
     M_Login _login;
+
+    QDataStream _buff;
 };
 
 #endif // SENDMESSAGE_H
