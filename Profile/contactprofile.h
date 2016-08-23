@@ -15,6 +15,8 @@ class ContactProfile : public BaseProfile
 public:
     ContactProfile();
     ContactProfile(QString userName, QString computerName, QString ip, QImage head = contactHead);
+
+    //TODO:在流操作中不要忘了父类成员
     friend QDataStream &operator <<(QDataStream &out, const ContactProfile &C){
         out << C._userName << C._computerName << C._ipAddress;
         return out;
