@@ -9,10 +9,10 @@ class GroupProfile : public BaseProfile
 {
 public:
     GroupProfile();
-    GroupProfile(QString name, QString data, QString time, QImage head = groupHead);
+    GroupProfile(QString groupName, QString groupData, QString foundTime, QImage head = groupHead);
 
     QString _foundTime;
-    QVector<QString> _contactVec;
+
 };
 
 #endif // GROUPPROFILE_H
