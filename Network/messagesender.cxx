@@ -18,7 +18,7 @@ MessageSender::MessageSender(M_Login login)
     out << login;
 }
 
-MessageSender::MessageSender(M_FileRequest request, MessageType type)
+MessageSender::MessageSender(M_File request, MessageType type)
 {
     _type = type;
     QDataStream out(&_data, QIODevice::WriteOnly);

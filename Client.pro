@@ -30,7 +30,8 @@ SOURCES += main.cxx\
     Network/filereceiver.cxx \
     Network/filesender.cxx \
     Network/messagereceiver.cxx \
-    Network/messagesender.cxx
+    Network/messagesender.cxx \
+    Button/filewidget.cxx
 
 HEADERS  += \
     protocol.h \
@@ -51,7 +52,8 @@ HEADERS  += \
     Network/filereceiver.h \
     Network/filesender.h \
     Network/messagereceiver.h \
-    Network/messagesender.h
+    Network/messagesender.h \
+    Button/filewidget.h
 
 FORMS += \
     mainform.ui \

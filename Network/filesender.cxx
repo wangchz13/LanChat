@@ -21,13 +21,19 @@ FileSender::FileSender(QString filePath, QHostAddress ipAddress)
     _bytesToWrite = 0;
 
     _tcpServer = new QTcpServer(this);
-    connect(_tcpServer,SIGNAL(newConnection()), this, SLOT(sendFile()));
+    connect(_tcpServer,SIGNAL(newConnection()), this, SLOT(send()));
 
+    initServer();
 }
 
-void FileSender::send()
+void FileSender::ready()
 {
-    MessageSender request(M_FileRequest(myProfile, _fileName));
+    if(!_tcpServer->listen(QHostAddress::Any, _tcpPort)){
+        qDebug() << "监听失败" << endl;
+        deleteLater();
+    }
+    qDebug() << "正在监听" << endl;
+    MessageSender request(M_File(myProfile, _fileName));
     request.send(_ipAddress);
 }
 
@@ -36,10 +42,11 @@ void FileSender::updateProgress(qint64 numBytes)
 
 }
 
-void FileSender::sendFile()
+void FileSender::send()
 {
+    qDebug() << "hasPendingConnections:"  <<_tcpServer->hasPendingConnections() << endl;
     _clientConnection = _tcpServer->nextPendingConnection();
-    connect(_clientConnection, SIGNAL(bytesWritten(qint64)), this, SLOT(updateProgress(qint64)));
+//    connect(_clientConnection, SIGNAL(bytesWritten(qint64)), this, SLOT(updateProgress(qint64)));
     _localFile = new QFile(_filePath);
     if(!_localFile->open(QFile::ReadOnly)){
         //TODO:emit something
@@ -61,5 +68,17 @@ void FileSender::sendFile()
 
 void FileSender::cancel()
 {
+    _tcpServer->close();
+    qDebug() << "已取消文件发送";
+    deleteLater();
+}
+
+void FileSender::initServer()
+{
+    _payloadSize = 64*1024;
+    _totalBytes = 0;
+    _bytesWritten = 0;
+    _bytesToWrite = 0;
+
     _tcpServer->close();
 }

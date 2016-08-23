@@ -18,9 +18,14 @@ QString getUserName();
 QString getComputerName();
 QString getIp();
 
-enum MessageType {login,message,myStateChange,contactStateChange,feedBack,fileRequest,refuseFile};
+enum MessageType {
+    login,message,myStateChange,
+    contactStateChange,feedBack,fileRequest,
+    refuseFile,receiveFile
+};
 enum StateType {onLine,busy,offLine};
 enum ProfileType {contact,group};
+enum FileWidgetType{sender,receiver};
 
 class M_Login
 {
@@ -88,18 +93,18 @@ public:
     ProfileType _type;
 };
 
-class M_FileRequest{
+class M_File{
 public:
-    M_FileRequest(){}
-    M_FileRequest(ContactProfile sender, QString fileName):
+    M_File(){}
+    M_File(ContactProfile sender, QString fileName):
         _sender(sender),_fileName(fileName){}
 
-    friend QDataStream &operator <<(QDataStream &out, const M_FileRequest &F){
+    friend QDataStream &operator <<(QDataStream &out, const M_File &F){
         out << F._sender << F._fileName;
         return out;
     }
 
-    friend QDataStream &operator >>(QDataStream &in, M_FileRequest &F){
+    friend QDataStream &operator >>(QDataStream &in, M_File &F){
         in >> F._sender >> F._fileName;
         return in;
     }

@@ -170,28 +170,51 @@ void MainForm::newMessageSlot(M_Message msg)
     }
 }
 
-void MainForm::fileRequestSlot(M_FileRequest request)
+void MainForm::fileRequestSlot(M_File request)
 {
-    QMessageBox::StandardButton ret
-    = QMessageBox::question(this, "接收文件",
-                            tr("是否接收来自 %1 的文件 %2 ?")
-                            .arg(request._sender._userName+"["+request._sender._computerName+"]")
-                            .arg(request._fileName),
-                            QMessageBox::Yes | QMessageBox::No,
-                            QMessageBox::Yes);
-    if(ret == QMessageBox::Yes){
-
-    }else{
-        MessageSender refuse(M_FileRequest(myProfile, request._fileName), MessageType::refuseFile);
-        refuse.send(QHostAddress(request._sender._ipAddress));
+    using namespace std;
+    QString sender = request._sender._fullName;
+    auto it = find_if(_currentChatVec.begin(), _currentChatVec.end(),
+                      [&sender](ChatForm *i){return sender == i->_title;});
+    if(it == _currentChatVec.end()){
+        ChatForm *cf = new ChatForm(sender, request._sender._ipAddress,request._sender._head, ProfileType::contact);
+        _currentChatVec.push_back(cf);
+        it = _currentChatVec.end()-1;
     }
+    ChatForm *curr = *it;
+    curr->show();
+    curr->fileRequest(request);
 }
 
-void MainForm::fileRefusedSlot(M_FileRequest refuse)
+void MainForm::fileRefusedSlot(M_File refused)
 {
-    QMessageBox::critical(this, "发送文件", tr("对方拒绝接受文件！"),
-                          QMessageBox::Yes,QMessageBox::Yes);
+    using namespace std;
+    QString sender = refused._sender._fullName;
+    auto it = find_if(_currentChatVec.begin(), _currentChatVec.end(),
+                      [&sender](ChatForm *i){return sender == i->_title;});
+    if(it == _currentChatVec.end()){
+        ChatForm *cf = new ChatForm(sender, refused._sender._ipAddress,refused._sender._head,ProfileType::contact);
+        _currentChatVec.push_back(cf);
+        it = _currentChatVec.end()-1;
+    }
+    ChatForm *curr = *it;
+    curr->show();
+    curr->fileRefused(refused);
+}
 
+void MainForm::fileReceiveSlot(M_File receive)
+{
+    using namespace std;
+    QString sender = receive._sender._fullName;
+    auto it = find_if(_currentChatVec.begin(), _currentChatVec.end(),
+                      [&sender](ChatForm *i){return sender == i->_title;});
+    if(it == _currentChatVec.end()){
+        ChatForm *cf = new ChatForm(sender, receive._sender._ipAddress, receive._sender._head, ProfileType::contact);
+        _currentChatVec.push_back(cf);
+        it = _currentChatVec.end()-1;
+    }
+    ChatForm *curr = *it;
+    curr->fileReceive(receive);
 }
 
 void MainForm::newChatSlot(BaseProfile c, ProfileType t)

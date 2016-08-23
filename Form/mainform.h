@@ -47,8 +47,10 @@ public slots:
 
     void newBuddySlot(M_Login login);
     void newMessageSlot(M_Message msg);
-    void fileRequestSlot(M_FileRequest request);
-    void fileRefusedSlot(M_FileRequest refuse);
+
+    void fileRequestSlot(M_File request);
+    void fileRefusedSlot(M_File refused);
+    void fileReceiveSlot(M_File receive);
 
     void newChatSlot(BaseProfile c, ProfileType t);
     void clearAllMsg();

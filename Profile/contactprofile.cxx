@@ -11,5 +11,5 @@ ContactProfile::ContactProfile(QString userName, QString computerName, QString i
     _computerName(computerName),
     _ipAddress(ip)
 {
-
+    _fullName = _userName + "[" + _computerName + "]";
 }

@@ -11,7 +11,7 @@ public:
     explicit MessageSender(QObject *parent = 0);
     MessageSender(M_Message message);
     MessageSender(M_Login login);
-    MessageSender(M_FileRequest request, MessageType type = MessageType::fileRequest);
+    MessageSender(M_File request, MessageType type = MessageType::fileRequest);
 
     qint16 port=45454;
 signals:

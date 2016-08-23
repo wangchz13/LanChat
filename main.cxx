@@ -3,6 +3,8 @@
 #include <QTextCodec>
 #include <QDebug>
 #include <QImage>
+#include <QStyle>
+#include <QStyleFactory>
 
 #include "protocol.h"
 #include "global.h"
@@ -42,6 +44,7 @@ void initGlobalEnvironment(){
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QApplication::setStyle(QStyleFactory::create("Fusion"));
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     QFile qss(":/qss/stylesheet.qss");
     qss.open(QFile::ReadOnly);
@@ -66,9 +69,10 @@ int main(int argc, char *argv[])
     sender.send();
 
 
-    QObject::connect(rcv, SIGNAL(newBuddy(M_Login)),mainForm, SLOT(newBuddySlot(M_Login)));
-    QObject::connect(rcv, SIGNAL(newMessage(M_Message)),mainForm, SLOT(newMessageSlot(M_Message)));
-    QObject::connect(rcv, SIGNAL(fileRequest(M_FileRequest)), mainForm, SLOT(fileRequestSlot(M_FileRequest)));
-    QObject::connect(rcv, SIGNAL(fileRefused(M_FileRequest)), mainForm, SLOT(fileRefusedSlot(M_FileRequest)));
+    QObject::connect(rcv, SIGNAL(newBuddy(M_Login)), mainForm, SLOT(newBuddySlot(M_Login)));
+    QObject::connect(rcv, SIGNAL(newMessage(M_Message)), mainForm, SLOT(newMessageSlot(M_Message)));
+    QObject::connect(rcv, SIGNAL(fileRequest(M_File)), mainForm, SLOT(fileRequestSlot(M_File)));
+    QObject::connect(rcv, SIGNAL(fileRefused(M_File)), mainForm, SLOT(fileRefusedSlot(M_File)));
+    QObject::connect(rcv, SIGNAL(fileReceive(M_File)), mainForm, SLOT(fileReceiveSlot(M_File)));
     return a.exec();
 }

@@ -32,15 +32,6 @@ MessageButton#countLabel{
     color:red;
 }
 
-QPushButton#closeButton{
-    background-color: yellow;
-    border-style: outset;
-    border-width:1px;
-    border-radius:10px;
-    border-color: beige;
-    font: 14px;
-    padding:6px;
-}
 
 
 

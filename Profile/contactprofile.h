@@ -18,18 +18,18 @@ public:
 
     //TODO:在流操作中不要忘了父类成员
     friend QDataStream &operator <<(QDataStream &out, const ContactProfile &C){
-        out << C._userName << C._computerName << C._ipAddress;
+        out << C._userName << C._computerName << C._ipAddress << C._fullName;
         return out;
     }
     friend QDataStream &operator >>(QDataStream &in, ContactProfile &C){
-        in >> C._userName >> C._computerName >> C._ipAddress;
+        in >> C._userName >> C._computerName >> C._ipAddress >> C._fullName;
         return in;
     }
 
     QString _userName;
     QString _computerName;
     QString _ipAddress;
-
+    QString _fullName;
 };
 
 #endif // CONTACTPROFILE_H

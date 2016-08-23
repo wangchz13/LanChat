@@ -17,10 +17,9 @@ void MessageReceiver::readyReadSlot()
     rcvSocket->readDatagram(rcvBuffer.data(), rcvBuffer.size());
     QDataStream in(&rcvBuffer, QIODevice::ReadOnly);
     in.setVersion(QDataStream::Qt_5_6);
-    MessageType type;
     qint8 temp;
     in >> temp;
-    type = (MessageType)temp;
+    MessageType type = (MessageType)temp;
     switch (type) {
     case MessageType::login:
         {
@@ -39,16 +38,25 @@ void MessageReceiver::readyReadSlot()
         break;
     case MessageType::fileRequest:
         {
-            M_FileRequest request;
+            M_File request;
             in >> request;
             emit fileRequest(request);
         }
+        break;
     case MessageType::refuseFile:
         {
-            M_FileRequest refuse;
+            M_File refuse;
             in >> refuse;
             emit fileRefused(refuse);
         }
+        break;
+    case MessageType::receiveFile:
+        {
+            M_File receive;
+            in >> receive;
+            emit fileReceive(receive);
+        }
+        break;
     default:
         break;
     }
