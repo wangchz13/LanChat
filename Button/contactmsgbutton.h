@@ -14,6 +14,7 @@
 
 class ContactMsgButton : public MessageButton
 {
+    Q_OBJECT
 public:
     ContactMsgButton(M_Message msg);
 
