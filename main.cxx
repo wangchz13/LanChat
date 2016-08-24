@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     QFile qss(":/qss/stylesheet.qss");
     qss.open(QFile::ReadOnly);
     QString s(qss.readAll());
-    a.setStyleSheet(s);
+//    a.setStyleSheet(s);
     qss.close();
 
     //初始化一些全局量

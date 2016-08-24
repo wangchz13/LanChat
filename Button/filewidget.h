@@ -19,10 +19,12 @@ public:
 
     QPushButton *createButton(QString text, QWidget *parent = 0);
 
+    QString updateInfo(QString info);
 signals:
 
 public slots:
-
+    void updateProgressSlot(qint64 totalBytes, qint64 bytesWritten, float speed);
+    void succeedSlot(QString fileName);
 private:
     QString _title;
     QString _info;

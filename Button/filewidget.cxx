@@ -12,9 +12,9 @@ FileWidget::FileWidget(QString fileName, FileWidgetType type, QWidget *parent):
 {
     _title = fileName;
     _titleLabel = new QLabel(_title);
-    _titleLabel->setFont(QFont("微软雅黑",8));
+    _titleLabel->setFont(QFont("微软雅黑",9));
     _progressBar = new QProgressBar();
-    _progressBar->setFixedHeight(5);
+    _progressBar->setFixedHeight(10);
     _infoLabel = new QLabel("info");
 
     _bottomHLayout = new QHBoxLayout;
@@ -28,6 +28,11 @@ FileWidget::FileWidget(QString fileName, FileWidgetType type, QWidget *parent):
     _mainVLayout->addWidget(_progressBar);
     _mainVLayout->addLayout(_bottomHLayout);
 
+    if(type == FileWidgetType::sender)
+        _infoLabel->setText("等待对方接收...");
+    else
+        _infoLabel->setText("正在接收...");
+
 //    setFixedHeight(65);
 }
 
@@ -39,7 +44,24 @@ QPushButton *FileWidget::createButton(QString text, QWidget *parent)
     button->setStyleSheet("background: transparent;color: rgb(0, 0, 255);");
     button->setCursor(Qt::PointingHandCursor);
     button->setStyle(QStyleFactory::create("Windows"));
-    qDebug() << text.size();
     button->setFixedWidth(text.size()*20);
     return button;
+}
+
+QString FileWidget::updateInfo(QString info)
+{
+    _infoLabel->setText(info);
+}
+
+
+void FileWidget::updateProgressSlot(qint64 totalBytes, qint64 bytesWritten, float speed)
+{
+    _progressBar->setMaximum(totalBytes);
+    _progressBar->setValue(bytesWritten);
+    _infoLabel->setText(tr("%1 MB/s").arg(speed*1000/(1024*1024),0,'f',2));
+}
+
+void FileWidget::succeedSlot(QString fileName)
+{
+    deleteLater();
 }

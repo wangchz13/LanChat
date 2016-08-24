@@ -16,5 +16,11 @@
         <file>source/head/1-150225211422-50.jpg</file>
         <file>source/head/contacthead.png</file>
         <file>source/head/grouphead.png</file>
+        <file>source/ico/bold.ico</file>
+        <file>source/ico/italic.ico</file>
+        <file>source/ico/underline.ico</file>
+        <file>source/ico/color.ico</file>
+        <file>source/ico/sendfile.ico</file>
+        <file>source/ico/15-Send (1).ico</file>
     </qresource>
 </RCC>

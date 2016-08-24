@@ -20,44 +20,46 @@ FileSender::FileSender(QString filePath, QHostAddress ipAddress)
     _totalBytes = 0;
     _bytesWritten = 0;
     _bytesToWrite = 0;
-
+    _speed = 0;
     _tcpServer = new QTcpServer(this);
     connect(_tcpServer, SIGNAL(newConnection()), this, SLOT(send()));
 }
 
 void FileSender::ready()
 {
-    if(!_tcpServer->listen(QHostAddress::Any, _tcpPort)){
-        qDebug() << "监听失败" << endl;
+    if(!_tcpServer->listen(QHostAddress(myIpAddress), _tcpPort)){
         deleteLater();
     }
-    qDebug() << "正在监听" << endl;
     MessageSender request(M_File(myProfile, _fileName));
     request.send(_ipAddress);
 }
 
-void FileSender::updateProgress(qint64 numBytes)
+void FileSender::bytesWrittenSlot(qint64 numBytes)
 {
-    _bytesWritten += (int) numBytes;
+    _bytesWritten += numBytes;
+    emit updateProgress(_totalBytes, _bytesWritten, _speed);
     if(_bytesToWrite > 0){
         _outBlock = _localFile->read(qMin(_bytesToWrite, _payloadSize));
-        _bytesToWrite -= (int)_clientConnection->write(_outBlock);
+        _bytesToWrite -= _clientConnection->write(_outBlock);
         _outBlock.resize(0);
+        qDebug() << _totalBytes << _bytesWritten;
     }else
         _localFile->close();
+    float useTime = _time.elapsed();
+    _speed = _bytesWritten / useTime;
     if(_bytesWritten == _totalBytes){
         _localFile->close();
         _tcpServer->close();
+        emit succeed(_fileName);
     }
 }
 
 void FileSender::send()
 {
     _clientConnection = _tcpServer->nextPendingConnection();
-    connect(_clientConnection, SIGNAL(bytesWritten(qint64)), this, SLOT(updateProgress(qint64)));
+    connect(_clientConnection, SIGNAL(bytesWritten(qint64)), this, SLOT(bytesWrittenSlot(qint64)));
     _localFile = new QFile(_filePath);
     if(!_localFile->open(QFile::ReadOnly)){
-        //TODO:emit something
         return;
     }
     _totalBytes = _localFile->size();
@@ -77,6 +79,5 @@ void FileSender::send()
 void FileSender::cancel()
 {
     _tcpServer->close();
-    qDebug() << "已取消文件发送";
     deleteLater();
 }

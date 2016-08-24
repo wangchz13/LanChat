@@ -221,7 +221,6 @@ void MainForm::fileReceiveSlot(M_File receive)
 void MainForm::newChatSlot(BaseProfile c, ProfileType t)
 {
     using namespace std;
-//    ChatForm *cf = new ChatForm(c._userName+"["+c._computerName+"]", c._ipAddress, c._head,ProfileType::contact);
 
     ChatForm *cf = new ChatForm(c._name, c._data, c._head, t);
 

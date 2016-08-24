@@ -44,14 +44,32 @@ public:
     void fileRefused(M_File refuse);
     void fileReceive(M_File receive);
 
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
 signals:
     void fileCancel();  //对方拒绝接受
     void fileSend();
 
+public slots:
+    void hideSideWidget(QObject *widget);
+    void fileReceivedSucceed(QString fileName);
+    void fileSendSucceed(QString fileName);
 private slots:
     void on_sendMsgButton_clicked();
 
     void on_sendFileBtn_clicked();
+
+    void on_fontComboBox_currentFontChanged(const QFont &f);
+
+    void on_sizeComboBox_currentIndexChanged(const QString &arg1);
+
+    void on_boldToolBtn_toggled(bool checked);
+
+    void on_italicToolBtn_toggled(bool checked);
+
+    void on_underlineToolBtn_toggled(bool checked);
+
+    void on_colorToolBtn_clicked();
 
 private:
     Ui::ChatForm *ui;

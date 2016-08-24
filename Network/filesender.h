@@ -14,16 +14,20 @@ public:
     explicit FileSender(QObject *parent = 0);
     FileSender(QString filePath, QHostAddress ipAddress);
 signals:
+    void updateProgress(qint64 totalBytes, qint64 bytesWritten, float speed);
+    void succeed(QString fileName);
 
 public slots:
     void ready();
-    void updateProgress(qint64 numBytes);
+    void bytesWrittenSlot(qint64 numBytes);
 
     void cancel();
 
 private slots:
     void send();
+
 private:
+    double _speed;
     qint16 _tcpPort;
     QTcpServer *_tcpServer;
     QString _filePath;

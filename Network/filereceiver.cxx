@@ -9,6 +9,7 @@ FileReceiver::FileReceiver(QObject *parent) : QObject(parent)
 
 FileReceiver::FileReceiver(QHostAddress serverIp, QString savePath)
 {
+    _speed = 0;
     _totalBytes = 0;
     _bytesReceived = 0;
     _fileNameSize = 0;
@@ -30,10 +31,9 @@ void FileReceiver::receive()
 
 void FileReceiver::readyReadSlot()
 {
-    qDebug() << "正在接收文件" << endl;
     QDataStream in(_tcpClient);
     in.setVersion(QDataStream::Qt_5_7);
-    float useTime = _time.elapsed();
+
 
     if(_bytesReceived <= sizeof(qint64)*2){
         if(_tcpClient->bytesAvailable()>=sizeof(qint64)*2 && _fileNameSize ==0){
@@ -44,7 +44,6 @@ void FileReceiver::readyReadSlot()
             in >> _fileName;
             _bytesReceived += _fileNameSize;
             if(!_localFile->open(QFile::WriteOnly)){
-                qDebug() << "无法读取文件" << endl;
                 return;
             }
         }else
@@ -56,15 +55,16 @@ void FileReceiver::readyReadSlot()
         _localFile->write(_inBlock);
         _inBlock.resize(0);
         qDebug() << "总共：" << _totalBytes << " " << "已接受：" << _bytesReceived;
-        double speed = _bytesReceived / useTime;
 
-        if(_bytesReceived == _totalBytes){
-            _localFile->close();
-            _tcpClient->close();
-            qDebug() << "文件接收完毕";
-        }
     }
-    qDebug() << "!!!!!!!!!!!!!!!!!!" << endl;
+    float useTime = _time.elapsed();
+    _speed = _bytesReceived / useTime;
+    emit updateProgress(_totalBytes, _bytesReceived, _speed);
+    if(_bytesReceived == _totalBytes){
+        _localFile->close();
+        _tcpClient->close();
+        emit succeed(_fileName);
+    }
 }
 
 void FileReceiver::setFileName(QString fileName)

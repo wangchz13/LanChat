@@ -15,6 +15,8 @@ public:
     FileReceiver(QHostAddress serverIp, QString savePath);
 
 signals:
+    void updateProgress(qint64 totalBytes, qint64 bytesWritten, float speed);
+    void succeed(QString fileName);
 
 public slots:
     void receive();
@@ -24,6 +26,7 @@ public slots:
 private slots:
     void readyReadSlot();
 private:
+    double _speed;
     QTcpSocket *_tcpClient;
     quint16 _blockSize;
     QHostAddress _hostAddress;
