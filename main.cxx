@@ -12,6 +12,7 @@
 #include "Network/messagesender.h"
 #include "Form/mainform.h"
 #include "Form/chatform.h"
+#include "facetableview.h"
 
 #include <QDebug>
 
@@ -23,7 +24,6 @@ QImage defaultHead;
 QImage contactHead;
 QImage groupHead;
 QPixmap *head;
-QVector<ChatForm*> currentChatVec;
 ContactProfile myProfile;
 
 void initGlobalEnvironment(){
@@ -49,11 +49,15 @@ int main(int argc, char *argv[])
     QFile qss(":/qss/stylesheet.qss");
     qss.open(QFile::ReadOnly);
     QString s(qss.readAll());
-//    a.setStyleSheet(s);
+    a.setStyleSheet(s);
     qss.close();
 
     //初始化一些全局量
     initGlobalEnvironment();
+
+    FaceTableView view;
+    view.show();
+
 
     //主窗体显示
     MainForm *mainForm = new MainForm;
@@ -71,6 +75,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(rcv, SIGNAL(newBuddy(M_Login)), mainForm, SLOT(newBuddySlot(M_Login)));
     QObject::connect(rcv, SIGNAL(newMessage(M_Message)), mainForm, SLOT(newMessageSlot(M_Message)));
+
     QObject::connect(rcv, SIGNAL(fileRequest(M_File)), mainForm, SLOT(fileRequestSlot(M_File)));
     QObject::connect(rcv, SIGNAL(fileRefused(M_File)), mainForm, SLOT(fileRefusedSlot(M_File)));
     QObject::connect(rcv, SIGNAL(fileReceive(M_File)), mainForm, SLOT(fileReceiveSlot(M_File)));

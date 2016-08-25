@@ -20,6 +20,5 @@ extern QImage groupHead;
 
 extern QPixmap *head;
 
-extern QVector<ChatForm*> currentChatVec;
 extern ContactProfile myProfile;
 #endif // GLOBAL_H

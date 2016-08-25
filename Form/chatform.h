@@ -15,6 +15,7 @@
 #include "global.h"
 #include "protocol.h"
 #include "Network/filereceiver.h"
+#include "facetableview.h"
 
 class QLabel;
 class QVBoxLayout;
@@ -54,6 +55,8 @@ public slots:
     void hideSideWidget(QObject *widget);
     void fileReceivedSucceed(QString fileName);
     void fileSendSucceed(QString fileName);
+
+    void insertEmoji(QString emoji);
 private slots:
     void on_sendMsgButton_clicked();
 
@@ -71,9 +74,12 @@ private slots:
 
     void on_colorToolBtn_clicked();
 
+    void on_faceToolBtn_toggled(bool checked);
+
 private:
     Ui::ChatForm *ui;
     QVBoxLayout *_fileLayout;
+    FaceTableView *_face;
 
 public:
     QString _title;

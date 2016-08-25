@@ -3,7 +3,9 @@
 
 #include "Network/messagesender.h"
 #include "Network/filesender.h"
-#include "Button/filewidget.h"
+#include "Widget/filewidget.h"
+
+#include "facetableview.h"
 
 #include "protocol.h"
 #include "global.h"
@@ -16,7 +18,7 @@
 #include <QPixmap>
 #include <QSizePolicy>
 #include <QColorDialog>
-
+#include <QTextCursor>
 #include <QFileDialog>
 
 #include <QDebug>
@@ -48,7 +50,8 @@ ChatForm::ChatForm(QString title, QString data, QImage head, ProfileType type, Q
     _fileLayout = new QVBoxLayout;
     _fileLayout->addStretch();
     ui->scrollAreaWidgetContents->setLayout(_fileLayout);
-
+    ui->msgTextEdit->setFocus();
+    _face = NULL;
 }
 
 ChatForm::~ChatForm()
@@ -158,6 +161,12 @@ void ChatForm::fileSendSucceed(QString fileName)
     ui->msgBrowser->append(tr("\n    发送文件 %1 成功\n").arg(fileName));
 }
 
+void ChatForm::insertEmoji(QString emoji)
+{
+    ui->msgTextEdit->textCursor().insertImage(emoji);
+    ui->faceToolBtn->click();
+}
+
 void ChatForm::on_sendMsgButton_clicked()
 {
     QString msg = ui->msgTextEdit->toPlainText();
@@ -253,4 +262,14 @@ void ChatForm::on_colorToolBtn_clicked()
         ui->msgTextEdit->setTextColor(color);
         ui->msgTextEdit->setFocus();
     }
+}
+
+void ChatForm::on_faceToolBtn_toggled(bool checked)
+{
+    if(!checked) return;
+    if(!_face){
+        _face = new FaceTableView;
+        connect(_face, SIGNAL(selected(QString)), this, SLOT(insertEmoji(QString)));
+    }
+    _face->show();
 }

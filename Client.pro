@@ -31,7 +31,8 @@ SOURCES += main.cxx\
     Network/filesender.cxx \
     Network/messagereceiver.cxx \
     Network/messagesender.cxx \
-    Button/filewidget.cxx
+    Widget/filewidget.cxx \
+    facetableview.cxx
 
 HEADERS  += \
     protocol.h \
@@ -53,7 +54,8 @@ HEADERS  += \
     Network/filesender.h \
     Network/messagereceiver.h \
     Network/messagesender.h \
-    Button/filewidget.h
+    Widget/filewidget.h \
+    facetableview.h
 
 FORMS += \
     mainform.ui \
