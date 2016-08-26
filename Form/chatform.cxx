@@ -6,7 +6,6 @@
 #include "Widget/filewidget.h"
 
 #include "facetableview.h"
-
 #include "protocol.h"
 #include "global.h"
 
@@ -52,6 +51,10 @@ ChatForm::ChatForm(QString title, QString data, QImage head, ProfileType type, Q
     ui->scrollAreaWidgetContents->setLayout(_fileLayout);
     ui->msgTextEdit->setFocus();
     _face = NULL;
+
+    _msgTextEdit = new MsgTextEdit();
+    _msgTextEdit->setFixedHeight(120);
+    ui->verticalLayout_2->insertWidget(3, _msgTextEdit);
 }
 
 ChatForm::~ChatForm()
@@ -129,8 +132,10 @@ bool ChatForm::eventFilter(QObject *watched, QEvent *event)
     if(event->type() == QEvent::KeyPress){
         QKeyEvent *e = static_cast<QKeyEvent*>(event);
         if(e->key() == Qt::Key_Return){
-            if(e->modifiers() & Qt::ControlModifier)
+            if(e->modifiers() & Qt::ControlModifier){
+                ui->msgTextEdit->insertHtml("<br>");
                 return false;
+            }
             on_sendMsgButton_clicked();
             return true;
         }
@@ -163,8 +168,12 @@ void ChatForm::fileSendSucceed(QString fileName)
 
 void ChatForm::insertEmoji(QString emoji)
 {
-    ui->msgTextEdit->textCursor().insertImage(emoji);
+//    ui->msgTextEdit->textCursor().insertImage(emoji);
+    QString url = tr("<img src = '%1'/>").arg(emoji.right(7));
+    _msgTextEdit->insertHtml(url);
+    _msgTextEdit->addAnimation(QUrl(emoji.right(7)), emoji);
     ui->faceToolBtn->click();
+
 }
 
 void ChatForm::on_sendMsgButton_clicked()

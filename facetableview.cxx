@@ -66,7 +66,7 @@ void FaceTableView::mouseReleaseEvent(QMouseEvent *event)
     int column = currentIndex().column();
     int row = currentIndex().row();
     int index = row * 14 + column;
-    QString image = tr(":/source/faces/classic-24/e%1.png").arg(QString::number(index +100));
+    QString image = tr(":/source/faces/classic-24/e%1.gif").arg(QString::number(index +100));
     emit selected(image);
     close();
 }

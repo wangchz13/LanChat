@@ -16,6 +16,7 @@
 #include "protocol.h"
 #include "Network/filereceiver.h"
 #include "facetableview.h"
+#include "msgtextedit.h"
 
 class QLabel;
 class QVBoxLayout;
@@ -80,7 +81,7 @@ private:
     Ui::ChatForm *ui;
     QVBoxLayout *_fileLayout;
     FaceTableView *_face;
-
+    MsgTextEdit *_msgTextEdit;
 public:
     QString _title;
     QString _data;
