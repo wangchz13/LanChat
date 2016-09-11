@@ -9,4 +9,4 @@
 * [qss](https://github.com/wangchz13/LanChat/tree/master/qss):存放样式表
 * [source](https://github.com/wangchz13/LanChat/tree/master/source)：存放资源
 * 
-https://github.com/wangchz13/LanChat/blob/master/preview.png “预览1”
+![Alt text](/preview.png)
